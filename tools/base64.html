@@ -1,55 +1,17 @@
 ﻿<!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Base64 缂栬В鐮?- H24 宸ュ叿绠?/title>
-  <meta name="description" content="鏂囨湰涓?Base64 浜掕浆锛屼篃鏀寔鏂囦欢锛堝浘鐗囥€丳DF 绛夛級杞?Base64銆?>
-  <link rel="stylesheet" href="../css/style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>馃攼</text></svg>">
-</head>
-<body>
-<header class="site-header">
-  <div class="header-inner">
-    <a href="../" class="logo"><span class="logo-icon">H24</span><span>宸ュ叿绠?/span></a>
-    <nav class="header-nav"><a href="../">鈫?杩斿洖棣栭〉</a></nav>
-  </div>
-</header>
-<main class="tool-page">
-<div class="tool-page-header">
-  <a href="../" class="back-link">鈫?杩斿洖鍏ㄩ儴宸ュ叿</a>
-  <h1>馃攼 Base64 缂栬В鐮?/h1>
-  <p>鏂囨湰涓?Base64 浜掕浆锛屼篃鏀寔鏂囦欢锛堝浘鐗囥€丳DF 绛夛級杞?Base64銆?/p>
-</div>
-<div class="tool-box">
-  <div style="display:flex;gap:.6rem;margin-bottom:1.2rem">
-    <button class="btn btn-primary" onclick="setMode('encode')" id="encBtn">缂栫爜</button>
-    <button class="btn btn-secondary" onclick="setMode('decode')" id="decBtn">瑙ｇ爜</button>
-  </div>
-  <div class="input-group"><label for="b64Input">杈撳叆</label><textarea id="b64Input" rows="5" placeholder="杈撳叆瑕佺紪鐮?瑙ｇ爜鐨勬枃鏈€?></textarea></div>
-  <div class="input-group"><label for="b64File">鎴栦笂浼犳枃浠剁紪鐮?/label><input type="file" id="b64File" onchange="loadFile()"></div>
-  <div class="btn-row">
-    <button class="btn btn-primary" onclick="convert()">鎵ц</button>
-    <button class="btn btn-secondary" onclick="var o=document.getElementById('b64Output');navigator.clipboard.writeText(o.textContent).then(function(){toast('宸插鍒?)})">澶嶅埗</button>
-  </div>
-  <div class="input-group"><label>杈撳嚭</label><div id="b64Output" class="result-box" style="min-height:80px"><span class="result-empty">绛夊緟杈撳叆鈥?/span></div></div>
-  <div id="b64Status"></div>
-</div>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Base64 编解码 - H24 工具箱</title>
+<link rel="stylesheet" href="../css/style.css">
+</head><body>
+<header><a href="../">H24 工具箱</a></header>
+<main><h1>Base64 编解码</h1>
+<p>文本与 Base64 互转。</p>
+<div><textarea id="i" placeholder="输入文本..."></textarea>
+<button onclick="c('enc')">编码</button><button onclick="c('dec')">解码</button>
+<pre id="o"></pre></div>
 </main>
-<footer class="site-footer">`n  H24 工具箱 &copy; 2026 &middot; <a href="../products/">数字商店</a> &middot; 纯前端 &middot; 隐私安全`n</footer>
-<div id="toast" class="toast"></div>
-<script src="../js/main.js"></script>
 <script>
-var b64mode='encode';
-function setMode(m){b64mode=m;document.getElementById('encBtn').className=m==='encode'?'btn btn-primary':'btn btn-secondary';document.getElementById('decBtn').className=m==='decode'?'btn btn-primary':'btn btn-secondary';document.getElementById('b64Input').placeholder=m==='encode'?'杈撳叆瑕佺紪鐮佺殑鏂囨湰鈥?:'杈撳叆 Base64 瀛楃涓测€?;document.getElementById('b64File').disabled=m!=='encode'}
-function loadFile(){var f=document.getElementById('b64File').files[0];if(!f)return;var r=new FileReader();r.onload=function(e){document.getElementById('b64Input').value=e.target.result;toast('宸茶鍙? '+f.name)};r.readAsDataURL(f)}
-function convert(){
-  var inp=document.getElementById('b64Input').value.trim(),out=document.getElementById('b64Output'),st=document.getElementById('b64Status');
-  if(!inp){out.innerHTML='<span class="result-empty">璇疯緭鍏ュ唴瀹?/span>';st.innerHTML='';return}
-  try{if(b64mode==='encode'){var e=btoa(unescape(encodeURIComponent(inp)));out.textContent=e;st.innerHTML='<div class="status-msg success">鉁?缂栫爜鎴愬姛 路 '+e.length+' 瀛楃</div>'}
-  else{try{var d=decodeURIComponent(escape(atob(inp)));out.textContent=d;st.innerHTML='<div class="status-msg success">鉁?瑙ｇ爜鎴愬姛</div>'}catch(e){out.innerHTML='<span class="result-empty">鏃犳硶瑙ｇ爜涓烘枃鏈?/span>';st.innerHTML='<div class="status-msg error">鉂?鏃犳晥鐨?Base64</div>'}}}
-  catch(e){out.innerHTML='<span class="result-empty">杞崲澶辫触</span>';st.innerHTML='<div class="status-msg error">鉂?'+e.message+'</div>'}
-}
+function c(m){var i=document.getElementById('i').value.trim();if(!i)return;var o=document.getElementById('o');try{o.textContent=m==='enc'?btoa(unescape(encodeURIComponent(i))):decodeURIComponent(escape(atob(i)))}catch(e){o.textContent='错误: '+e.message}}
 </script>
-</body>
-</html>
+</body></html>

@@ -1,55 +1,24 @@
 ﻿<!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>姝ｅ垯娴嬭瘯鍣?- H24 宸ュ叿绠?/title>
-  <meta name="description" content="鍦ㄧ嚎娴嬭瘯姝ｅ垯琛ㄨ揪寮忥紝瀹炴椂鍖归厤楂樹寒鏄剧ず锛屾敮鎸佹崟鑾风粍鏌ョ湅鍜屾浛鎹€?>
-  <link rel="stylesheet" href="../css/style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>馃И</text></svg>">
-</head>
-<body>
-<header class="site-header">
-  <div class="header-inner">
-    <a href="../" class="logo"><span class="logo-icon">H24</span><span>宸ュ叿绠?/span></a>
-    <nav class="header-nav"><a href="../">鈫?杩斿洖棣栭〉</a></nav>
-  </div>
-</header>
-<main class="tool-page">
-<div class="tool-page-header">
-  <a href="../" class="back-link">鈫?杩斿洖鍏ㄩ儴宸ュ叿</a>
-  <h1>馃И 姝ｅ垯娴嬭瘯鍣?/h1>
-  <p>鍦ㄧ嚎娴嬭瘯姝ｅ垯琛ㄨ揪寮忥紝瀹炴椂鍖归厤楂樹寒鏄剧ず锛屾敮鎸佹崟鑾风粍鏌ョ湅鍜屾浛鎹€?/p>
-</div>
-<div class="tool-box">
-  <div class="input-group">
-    <label for="rePat">姝ｅ垯琛ㄨ揪寮?/label>
-    <div style="display:flex;gap:.3rem;align-items:center"><code style="color:var(--gray-400)">/</code><input type="text" id="rePat" value="\\d+" style="flex:1;font-family:monospace" oninput="testRe()" placeholder="姝ｅ垯"><code style="color:var(--gray-400)">/</code><input type="text" id="reFlags" value="g" style="width:70px;font-family:monospace" oninput="testRe()" placeholder="gim"></div>
-  </div>
-  <div class="input-group"><label for="reText">娴嬭瘯鏂囨湰</label><textarea id="reText" rows="6" oninput="testRe()" placeholder="杈撳叆瑕佸尮閰嶇殑鏂囨湰鈥?>Hello 2026! 浠锋牸: 99 鍏冿紝搴撳瓨: 42 浠躲€?/textarea></div>
-  <div class="input-group"><label for="reReplace">鏇挎崲鏂囨湰锛堝彲閫夛級</label><input type="text" id="reReplace" placeholder="杈撳叆鏇挎崲鏂囨湰鈥? oninput="testRe()"></div>
-  <div class="btn-row"><button class="btn btn-primary" onclick="testRe()">娴嬭瘯</button><button class="btn btn-secondary" onclick="document.getElementById('rePat').value='';document.getElementById('reText').value='';document.getElementById('reReplace').value='';document.getElementById('reOutput').innerHTML='<span class=\"result-empty\">绛夊緟娴嬭瘯鈥?/span>'">娓呯┖</button></div>
-  <div id="reOutput" class="result-box" style="min-height:100px;white-space:pre-wrap;font-family:monospace"><span class="result-empty">绛夊緟娴嬭瘯鈥?/span></div>
-  <div id="reInfo" style="margin-top:.5rem;font-size:.85rem"></div>
-</div>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>正则测试器 - H24 工具箱</title>
+<link rel="stylesheet" href="../css/style.css">
+</head><body>
+<header><a href="../">H24 工具箱</a></header>
+<main><h1>正则测试器</h1>
+<p>在线测试正则表达式，实时匹配高亮。</p>
+<div><label>正则</label><input id="p" value="\d+" oninput="t()" style="font-family:monospace">
+<label>文本</label><textarea id="x" rows="4" oninput="t()">Hello 2026! 价格 99 元</textarea>
+<div id="o" style="padding:.5rem;background:var(--gray-50);border-radius:6px;min-height:40px"></div></div>
 </main>
-<footer class="site-footer">`n  H24 工具箱 &copy; 2026 &middot; <a href="../products/">数字商店</a> &middot; 纯前端 &middot; 隐私安全`n</footer>
-<div id="toast" class="toast"></div>
-<script src="../js/main.js"></script>
 <script>
 function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
-function testRe(){
-  var pat=document.getElementById('rePat').value,flags=document.getElementById('reFlags').value,txt=document.getElementById('reText').value,rpl=document.getElementById('reReplace').value,out=document.getElementById('reOutput'),info=document.getElementById('reInfo');
-  if(!pat){out.innerHTML='<span class="result-empty">璇疯緭鍏ユ鍒?/span>';info.textContent='';return}
-  try{var re=new RegExp(pat,flags);var matches=txt.matchAll(re);var arr=Array.from(matches);if(rpl){out.innerHTML='<div>鏇挎崲缁撴灉:</div><div style=margin-top:.3rem>'+esc(txt.replace(re,rpl))+'</div>';info.innerHTML='<span style=color:var(--gray-400)>鏇挎崲瀹屾垚</span>';return}
-  if(arr.length===0){out.innerHTML='<span class="result-empty">鏃犲尮閰?/span>';info.textContent='';return}
-  var last=0,html='',cnt=0;var g=new RegExp(pat,flags.includes('g')?flags:flags+'g');var m;
-  while((m=g.exec(txt))!==null){html+=esc(txt.slice(last,m.index));html+='<mark style=background:#fde68a;padding:.1rem .2rem;border-radius:2px>'+esc(m[0])+'</mark>';last=g.lastIndex;cnt++;if(m.index===g.lastIndex)g.lastIndex++}
-  html+=esc(txt.slice(last));out.innerHTML='<div style=margin-bottom:.3rem;color:var(--gray-500);font-size:.85rem>鍖归厤 '+cnt+' 澶?/div><div>'+html+'</div>';
-  if(arr[0].length>1){var gi='<div style=margin-top:.3rem;font-size:.85rem>鎹曡幏缁? ';for(var i=1;i<arr[0].length;i++)gi+='<code style=background:var(--gray-100);padding:.1rem .4rem;border-radius:3px>\$'+i+': '+esc(arr[0][i]||'(绌?')+'</code> ';gi+='</div>';info.innerHTML=gi}else{info.textContent=''}}
-  catch(e){out.innerHTML='<span class="result-empty">姝ｅ垯閿欒</span>';info.innerHTML='<span style=color:#dc2626>'+esc(e.message)+'</span>'}
-}
-testRe();
+function t(){var p=document.getElementById('p').value,x=document.getElementById('x').value;if(!p){document.getElementById('o').textContent='';return}
+try{var re=new RegExp(p,'g'),m=[],mm;while((mm=re.exec(x))!==null){m.push(mm[0]);if(mm.index===re.lastIndex)re.lastIndex++}
+var h='<span style=color:var(--gray-400)>匹配: '+m.length+' 处</span><br>';var li=0,re2=new RegExp(p,'g');
+while((mm=re2.exec(x))!==null){h+=esc(x.slice(li,mm.index));h+='<mark style=background:#fde68a;border-radius:2px>'+esc(mm[0])+'</mark>';li=re2.lastIndex;if(mm.index===re2.lastIndex)re2.lastIndex++}
+h+=esc(x.slice(li));document.getElementById('o').innerHTML=h}
+catch(e){document.getElementById('o').textContent='正则错误: '+e.message}}
+t();
 </script>
-</body>
-</html>
+</body></html>

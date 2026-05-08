@@ -1,88 +1,15 @@
 ﻿<!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>浜岀淮鐮佺敓鎴愬櫒 - H24 宸ュ叿绠?/title>
-  <meta name="description" content="杈撳叆鏂囨湰鎴栭摼鎺ワ紝涓€閿敓鎴愪簩缁寸爜锛屾敮鎸佷笅杞介珮娓?PNG銆?>
-  <link rel="stylesheet" href="../css/style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>馃摫</text></svg>">
-</head>
-<body>
-<header class="site-header">
-  <div class="header-inner">
-    <a href="../" class="logo"><span class="logo-icon">H24</span><span>宸ュ叿绠?/span></a>
-    <nav class="header-nav"><a href="../">鈫?杩斿洖棣栭〉</a></nav>
-  </div>
-</header>
-<main class="tool-page">
-<div class="tool-page-header">
-  <a href="../" class="back-link">鈫?杩斿洖鍏ㄩ儴宸ュ叿</a>
-  <h1>馃摫 浜岀淮鐮佺敓鎴愬櫒</h1>
-  <p>杈撳叆鏂囨湰鎴栭摼鎺ワ紝涓€閿敓鎴愪簩缁寸爜锛屾敮鎸佷笅杞介珮娓?PNG銆?/p>
-</div>
-<div class="tool-box">
-  <div class="input-group">
-    <label for="qrInput">杈撳叆鍐呭</label>
-    <textarea id="qrInput" rows="3" placeholder="杈撳叆鏂囨湰銆佺綉鍧€鈥?渚嬪锛歨ttps://example.com"></textarea>
-  </div>
-  <div class="input-group" style="display:flex;gap:.8rem;flex-wrap:wrap">
-    <div style="flex:1;min-width:120px">
-      <label for="qrSize">灏哄 (px)</label>
-      <select id="qrSize">
-        <option value="200">200 脳 200</option>
-        <option value="300" selected>300 脳 300</option>
-        <option value="400">400 脳 400</option>
-        <option value="500">500 脳 500</option>
-      </select>
-    </div>
-    <div style="flex:1;min-width:120px">
-      <label for="qrECC">绾犻敊绛夌骇</label>
-      <select id="qrECC">
-        <option value="L">浣?(L)</option>
-        <option value="M" selected>涓?(M)</option>
-        <option value="Q">杈冮珮 (Q)</option>
-        <option value="H">楂?(H)</option>
-      </select>
-    </div>
-  </div>
-  <div class="btn-row">
-    <button class="btn btn-primary" onclick="generateQR()">鐢熸垚浜岀淮鐮?/button>
-    <button class="btn btn-secondary" id="downloadBtn" onclick="downloadQR()" disabled>涓嬭浇 PNG</button>
-  </div>
-  <div class="result-box" style="text-align:center;padding:1.5rem;min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center">
-    <div id="qrContainer" style="background:white;padding:8px;border-radius:4px;display:inline-block"></div>
-    <p id="qrHint" style="color:var(--gray-400);margin-top:1rem">鐐瑰嚮銆岀敓鎴愪簩缁寸爜銆嶉瑙?/p>
-  </div>
-</div>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>二维码生成器 - H24 工具箱</title>
+<link rel="stylesheet" href="../css/style.css">
+</head><body>
+<header><a href="../">H24 工具箱</a></header>
+<main><h1>二维码生成器</h1>
+<p>输入文本或链接，生成二维码，支持下载 PNG。</p>
+<div><textarea id="q" placeholder="输入内容..."></textarea><button onclick="g()">生成</button><div id="qr"></div></div>
 </main>
-<footer class="site-footer">`n  H24 工具箱 &copy; 2026 &middot; <a href="../products/">数字商店</a> &middot; 纯前端 &middot; 隐私安全`n</footer>
-<div id="toast" class="toast"></div>
-<script src="../js/main.js"></script>
 <script src="../js/qrcode.min.js"></script>
-<script>
-let qrData = null;
-function generateQR() {
-  const text = document.getElementById('qrInput').value.trim();
-  if (!text) { toast('鈿狅笍 璇疯緭鍏ヨ鐢熸垚鐨勫唴瀹?); return; }
-  const size = parseInt(document.getElementById('qrSize').value);
-  const ecc = document.getElementById('qrECC').value;
-  const el = document.getElementById('qrContainer');
-  el.innerHTML = '';
-  try {
-    new QRCode(el, { text, width: size, height: size, colorDark: '#000', colorLight: '#fff', correctLevel: QRCode.CorrectLevel[ecc] || QRCode.CorrectLevel.M });
-    setTimeout(() => {
-      const cv = el.querySelector('canvas');
-      if (cv) { qrData = cv.toDataURL('image/png'); document.getElementById('downloadBtn').disabled = false; document.getElementById('qrHint').textContent = '鉁?鐢熸垚鎴愬姛锛屽彲鐐瑰嚮涓嬭浇'; toast('鉁?浜岀淮鐮佸凡鐢熸垚'); }
-    }, 150);
-  } catch(e) { toast('鉂?鐢熸垚澶辫触: ' + e.message); }
-}
-function downloadQR() {
-  if (!qrData) return;
-  const a = document.createElement('a'); a.href = qrData;
-  const t = document.getElementById('qrInput').value.trim().substring(0,20).replace(/[^\w\u4e00-\u9fa5]/g, '_');
-  a.download = 'qrcode_' + (t || 'h24') + '.png'; a.click();
-}
+<script>function g(){var t=document.getElementById('q').value.trim();if(t)try{new QRCode(document.getElementById('qr'),{text:t,width:200,height:200})}catch(e){}}
 </script>
-</body>
-</html>
+</body></html>
