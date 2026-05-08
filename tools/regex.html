@@ -3,51 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>正则测试器 - H24 工具箱</title>
-  <meta name="description" content="免费在线正则表达式测试工具，支持实时匹配高亮、标志位设置、替换测试。">
+  <title>正则测试�?- H24 工具�?/title>
+  <meta name="description" content="免费在线正则表达式测试工具，支持实时匹配高亮、标志位设置、替换测试�?>
   <link rel="stylesheet" href="../css/style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧪</text></svg>">
 </head>
 <body>
 <header class="site-header">
   <div class="header-inner">
-    <a href="../" class="logo"><span class="logo-icon">H24</span><span>工具箱</span></a>
-    <nav class="header-nav"><a href="../">← 返回首页</a></nav>
+    <a href="../" class="logo"><span class="logo-icon">H24</span><span>工具�?/span></a>
+    <nav class="header-nav"><a href="../">�?返回首页</a></nav>
   </div>
 </header>
 <main class="tool-page">
   <div class="tool-page-header">
-    <a href="../" class="back-link">← 返回全部工具</a>
-    <h1>🧪 正则测试器</h1>
-    <p>编写和测试正则表达式，实时高亮匹配结果。</p>
+    <a href="../" class="back-link">�?返回全部工具</a>
+    <h1>🧪 正则测试�?/h1>
+    <p>编写和测试正则表达式，实时高亮匹配结果�?/p>
   </div>
   <div class="tool-box">
     <div class="input-group">
-      <label for="regexPattern">正则表达式</label>
+      <label for="regexPattern">正则表达�?/label>
       <div style="display:flex;gap:.5rem;align-items:center">
         <code style="color:var(--gray-400)">/</code>
-        <input type="text" id="regexPattern" value="\d+" style="flex:1;font-family:monospace" oninput="debounceTest()" placeholder="输入正则表达式">
+        <input type="text" id="regexPattern" value="\d+" style="flex:1;font-family:monospace" oninput="debounceTest()" placeholder="输入正则表达�?>
         <code style="color:var(--gray-400)">/</code>
         <input type="text" id="regexFlags" value="g" style="width:80px;font-family:monospace" oninput="debounceTest()" placeholder="gim">
       </div>
     </div>
     <div class="input-group">
       <label for="regexText">测试文本</label>
-      <textarea id="regexText" rows="6" oninput="debounceTest()" placeholder="在此输入要匹配的文本…">Hello 2026! 价格: 99 元，库存: 42 件。</textarea>
+      <textarea id="regexText" rows="6" oninput="debounceTest()" placeholder="在此输入要匹配的文本�?>Hello 2026! 价格: 99 元，库存: 42 件�?/textarea>
     </div>
     <div class="input-group">
       <label for="regexReplace">替换文本（可选）</label>
-      <input type="text" id="regexReplace" placeholder="输入替换文本…" oninput="debounceTest()">
+      <input type="text" id="regexReplace" placeholder="输入替换文本�? oninput="debounceTest()">
     </div>
     <div class="btn-row">
-      <button class="btn btn-primary" onclick="testRegex()">▶ 测试</button>
+      <button class="btn btn-primary" onclick="testRegex()">�?测试</button>
       <button class="btn btn-secondary" onclick="clearRegex()">🗑 清空</button>
     </div>
-    <div id="regexOutput" class="result-box" style="min-height:100px;white-space:pre-wrap;font-family:monospace"><span class="result-empty">等待测试…</span></div>
+    <div id="regexOutput" class="result-box" style="min-height:100px;white-space:pre-wrap;font-family:monospace"><span class="result-empty">等待测试�?/span></div>
     <div id="regexInfo" style="margin-top:.5rem;font-size:.85rem"></div>
   </div>
 </main>
-<footer class="site-footer"><p>H24 工具箱 &copy; 2026</p></footer>
+<footer class="site-footer">
+  H24 ������ &copy; 2026 &middot; ��ǰ�� �� ��˽��ȫ
+</footer>
 <div id="toast" class="toast"></div>
 <script src="../js/main.js"></script>
 <script>
@@ -73,13 +75,13 @@ function testRegex() {
     if (replace) {
       const replaced = text.replace(re, replace);
       output.innerHTML = `<div>替换结果:</div><div style="margin-top:.3rem">${escapeHtml(replaced)}</div>`;
-      info.innerHTML = `<span style="color:var(--gray-400)">替换完成 · ${matches.length} 处匹配</span>`;
+      info.innerHTML = `<span style="color:var(--gray-400)">替换完成 · ${matches.length} 处匹�?/span>`;
       return;
     }
 
     if (matches.length === 0) {
-      output.innerHTML = '<span class="result-empty">无匹配结果</span>';
-      info.innerHTML = `<span style="color:var(--gray-500)">未找到匹配</span>`;
+      output.innerHTML = '<span class="result-empty">无匹配结�?/span>';
+      info.innerHTML = `<span style="color:var(--gray-500)">未找到匹�?/span>`;
       return;
     }
 
@@ -100,12 +102,12 @@ function testRegex() {
     }
     html += escapeHtml(text.slice(lastIndex));
 
-    output.innerHTML = `<div style="margin-bottom:.5rem;color:var(--gray-500);font-size:.85rem">匹配 ${matchCount} 处，共 ${totalLen} 字符</div><div>${html}</div>`;
+    output.innerHTML = `<div style="margin-bottom:.5rem;color:var(--gray-500);font-size:.85rem">匹配 ${matchCount} 处，�?${totalLen} 字符</div><div>${html}</div>`;
 
     // Show capture groups for first match
     const firstMatch = [...text.matchAll(re)][0];
     if (firstMatch && firstMatch.length > 1) {
-      let groupInfo = '<div style="margin-top:.5rem;font-size:.85rem">捕获组: ';
+      let groupInfo = '<div style="margin-top:.5rem;font-size:.85rem">捕获�? ';
       for (let i = 1; i < firstMatch.length; i++) {
         groupInfo += `<code style="background:var(--gray-100);padding:.1rem .4rem;border-radius:3px;margin:0 .2rem">$${i}: ${escapeHtml(firstMatch[i] || '(undefined)')}</code> `;
       }
@@ -115,8 +117,8 @@ function testRegex() {
       info.innerHTML = '';
     }
   } catch(e) {
-    output.innerHTML = '<span class="result-empty">正则表达式错误</span>';
-    info.innerHTML = `<span style="color:#dc2626">❌ ${escapeHtml(e.message)}</span>`;
+    output.innerHTML = '<span class="result-empty">正则表达式错�?/span>';
+    info.innerHTML = `<span style="color:#dc2626">�?${escapeHtml(e.message)}</span>`;
   }
 }
 
@@ -124,7 +126,7 @@ function clearRegex() {
   $('regexPattern').value = '';
   $('regexText').value = '';
   $('regexReplace').value = '';
-  $('regexOutput').innerHTML = '<span class="result-empty">等待测试…</span>';
+  $('regexOutput').innerHTML = '<span class="result-empty">等待测试�?/span>';
   $('regexInfo').textContent = '';
 }
 

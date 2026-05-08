@@ -3,23 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JSON 格式化 - H24 工具箱</title>
-  <meta name="description" content="免费在线 JSON 格式化工具，支持格式化、压缩、校验 JSON 数据，自动检测错误位置。">
+  <title>JSON 格式�?- H24 工具�?/title>
+  <meta name="description" content="免费在线 JSON 格式化工具，支持格式化、压缩、校�?JSON 数据，自动检测错误位置�?>
   <link rel="stylesheet" href="../css/style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📋</text></svg>">
 </head>
 <body>
 <header class="site-header">
   <div class="header-inner">
-    <a href="../" class="logo"><span class="logo-icon">H24</span><span>工具箱</span></a>
-    <nav class="header-nav"><a href="../">← 返回首页</a></nav>
+    <a href="../" class="logo"><span class="logo-icon">H24</span><span>工具�?/span></a>
+    <nav class="header-nav"><a href="../">�?返回首页</a></nav>
   </div>
 </header>
 <main class="tool-page">
   <div class="tool-page-header">
-    <a href="../" class="back-link">← 返回全部工具</a>
-    <h1>📋 JSON 格式化</h1>
-    <p>格式化、压缩、校验 JSON 数据。支持自动检测语法错误。</p>
+    <a href="../" class="back-link">�?返回全部工具</a>
+    <h1>📋 JSON 格式�?/h1>
+    <p>格式化、压缩、校�?JSON 数据。支持自动检测语法错误�?/p>
   </div>
   <div class="tool-box">
     <div class="input-group">
@@ -27,19 +27,21 @@
       <textarea id="jsonInput" rows="8" placeholder='{"name":"H24","version":1,"tools":["json","base64"]}'></textarea>
     </div>
     <div class="btn-row">
-      <button class="btn btn-primary" onclick="formatJSON(2)">✨ 格式化</button>
+      <button class="btn btn-primary" onclick="formatJSON(2)">�?格式�?/button>
       <button class="btn btn-secondary" onclick="formatJSON(0)">📦 压缩</button>
-      <button class="btn btn-secondary" onclick="formatJSON(4)">缩进 4 格</button>
+      <button class="btn btn-secondary" onclick="formatJSON(4)">缩进 4 �?/button>
       <button class="btn btn-secondary" onclick="copyText($('jsonOutput').textContent)">📋 复制结果</button>
     </div>
     <div class="input-group">
       <label>输出</label>
-      <div id="jsonOutput" class="result-box" style="min-height:120px"><span class="result-empty">等待输入…</span></div>
+      <div id="jsonOutput" class="result-box" style="min-height:120px"><span class="result-empty">等待输入�?/span></div>
     </div>
     <div id="jsonStatus"></div>
   </div>
 </main>
-<footer class="site-footer"><p>H24 工具箱 &copy; 2026</p></footer>
+<footer class="site-footer">
+  H24 ������ &copy; 2026 &middot; ��ǰ�� �� ��˽��ȫ
+</footer>
 <div id="toast" class="toast"></div>
 <script src="../js/main.js"></script>
 <script>
@@ -48,7 +50,7 @@ function formatJSON(spaces) {
   const output = $('jsonOutput');
   const status = $('jsonStatus');
 
-  if (!input) { output.innerHTML = '<span class="result-empty">请输入 JSON 数据</span>'; status.innerHTML = ''; return; }
+  if (!input) { output.innerHTML = '<span class="result-empty">请输�?JSON 数据</span>'; status.innerHTML = ''; return; }
 
   try {
     const parsed = JSON.parse(input);
@@ -57,7 +59,7 @@ function formatJSON(spaces) {
     const bytes = new Blob([formatted]).size;
     const lineCount = formatted.split('\n').length;
     const keyCount = countKeys(parsed);
-    status.innerHTML = `<div class="status-msg success">✅ 校验通过 · ${keyCount} 个键 · ${lineCount} 行 · ${bytes} 字节</div>`;
+    status.innerHTML = `<div class="status-msg success">�?校验通过 · ${keyCount} 个键 · ${lineCount} �?· ${bytes} 字节</div>`;
   } catch(e) {
     // Try to extract position info
     const msg = e.message;
@@ -70,13 +72,13 @@ function formatJSON(spaces) {
       if (line > 0) {
         const lines = input.split('\n');
         const ctx = lines[line - 1] || '';
-        detail += ` 第 ${line} 行`;
+        detail += ` �?${line} 行`;
         if (pos >= 0) detail += `，第 ${pos - lines.slice(0, line-1).join('\n').length - 1} 列`;
         detail += `<br><code style="background:#fef2f2;padding:.2rem .5rem;border-radius:4px;font-size:.85rem;display:inline-block;margin-top:.3rem">${escapeHtml(ctx.substring(0, 80))}</code>`;
       }
     }
     output.innerHTML = `<span class="result-empty">JSON 解析失败</span>`;
-    status.innerHTML = `<div class="status-msg error">❌ ${escapeHtml(msg)}<br>${detail}</div>`;
+    status.innerHTML = `<div class="status-msg error">�?${escapeHtml(msg)}<br>${detail}</div>`;
   }
 }
 

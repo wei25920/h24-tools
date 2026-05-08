@@ -3,32 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>URL 编解码 - H24 工具箱</title>
-  <meta name="description" content="免费在线 URL 编码解码工具，解决中文和特殊字符在 URL 中的传输问题。">
+  <title>URL 编解�?- H24 工具�?/title>
+  <meta name="description" content="免费在线 URL 编码解码工具，解决中文和特殊字符�?URL 中的传输问题�?>
   <link rel="stylesheet" href="../css/style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔗</text></svg>">
 </head>
 <body>
 <header class="site-header">
   <div class="header-inner">
-    <a href="../" class="logo"><span class="logo-icon">H24</span><span>工具箱</span></a>
-    <nav class="header-nav"><a href="../">← 返回首页</a></nav>
+    <a href="../" class="logo"><span class="logo-icon">H24</span><span>工具�?/span></a>
+    <nav class="header-nav"><a href="../">�?返回首页</a></nav>
   </div>
 </header>
 <main class="tool-page">
   <div class="tool-page-header">
-    <a href="../" class="back-link">← 返回全部工具</a>
-    <h1>🔗 URL 编解码</h1>
-    <p>URL 编码（百分号编码）与解码。解决中文、特殊字符在 URL 中乱码的问题。</p>
+    <a href="../" class="back-link">�?返回全部工具</a>
+    <h1>🔗 URL 编解�?/h1>
+    <p>URL 编码（百分号编码）与解码。解决中文、特殊字符在 URL 中乱码的问题�?/p>
   </div>
   <div class="tool-box">
     <div style="display:flex;gap:.6rem;margin-bottom:1.2rem">
-      <button class="btn btn-primary" onclick="switchMode('encode')" id="urlEncodeBtn">⬆ 编码</button>
-      <button class="btn btn-secondary" onclick="switchMode('decode')" id="urlDecodeBtn">⬇ 解码</button>
+      <button class="btn btn-primary" onclick="switchMode('encode')" id="urlEncodeBtn">�?编码</button>
+      <button class="btn btn-secondary" onclick="switchMode('decode')" id="urlDecodeBtn">�?解码</button>
     </div>
     <div class="input-group">
       <label for="urlInput">输入</label>
-      <textarea id="urlInput" rows="5" placeholder="输入要编码/解码的文本…"></textarea>
+      <textarea id="urlInput" rows="5" placeholder="输入要编�?解码的文本�?></textarea>
     </div>
     <div class="btn-row">
       <button class="btn btn-primary" onclick="convertURL()">🚀 执行</button>
@@ -37,12 +37,14 @@
     </div>
     <div class="input-group">
       <label>输出</label>
-      <div id="urlOutput" class="result-box" style="min-height:80px"><span class="result-empty">等待输入…</span></div>
+      <div id="urlOutput" class="result-box" style="min-height:80px"><span class="result-empty">等待输入�?/span></div>
     </div>
     <div id="urlStatus"></div>
   </div>
 </main>
-<footer class="site-footer"><p>H24 工具箱 &copy; 2026</p></footer>
+<footer class="site-footer">
+  H24 ������ &copy; 2026 &middot; ��ǰ�� �� ��˽��ȫ
+</footer>
 <div id="toast" class="toast"></div>
 <script src="../js/main.js"></script>
 <script>
@@ -51,21 +53,21 @@ function switchMode(m) {
   urlMode = m;
   $('urlEncodeBtn').className = m === 'encode' ? 'btn btn-primary' : 'btn btn-secondary';
   $('urlDecodeBtn').className = m === 'decode' ? 'btn btn-primary' : 'btn btn-secondary';
-  $('urlInput').placeholder = m === 'encode' ? '输入要编码的文本…' : '输入编码后的 URL…';
+  $('urlInput').placeholder = m === 'encode' ? '输入要编码的文本�? : '输入编码后的 URL�?;
 }
 function convertURL() {
   const input = $('urlInput').value;
   const output = $('urlOutput');
   const status = $('urlStatus');
-  if (!input) { output.innerHTML = '<span class="result-empty">请输入内容</span>'; status.innerHTML = ''; return; }
+  if (!input) { output.innerHTML = '<span class="result-empty">请输入内�?/span>'; status.innerHTML = ''; return; }
   try {
     const result = urlMode === 'encode' ? encodeURIComponent(input) : decodeURIComponent(input);
     output.textContent = result;
     const diff = result !== input;
-    status.innerHTML = `<div class="status-msg success">✅ ${urlMode === 'encode' ? '编码' : '解码'}成功 · ${result.length} 字符${diff ? ' · 内容已变化' : ''}</div>`;
+    status.innerHTML = `<div class="status-msg success">�?${urlMode === 'encode' ? '编码' : '解码'}成功 · ${result.length} 字符${diff ? ' · 内容已变�? : ''}</div>`;
   } catch(e) {
     output.innerHTML = '<span class="result-empty">转换失败</span>';
-    status.innerHTML = `<div class="status-msg error">❌ ${e.message}</div>`;
+    status.innerHTML = `<div class="status-msg error">�?${e.message}</div>`;
   }
 }
 function swapInputOutput() {

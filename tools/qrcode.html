@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>二维码生成器 - H24 工具箱</title>
-  <meta name="description" content="免费在线二维码生成器，支持文本、网址、WiFi 信息生成二维码，可下载 PNG 图片。">
+  <title>二维码生成器 - H24 工具�?/title>
+  <meta name="description" content="免费在线二维码生成器，支持文本、网址、WiFi 信息生成二维码，可下�?PNG 图片�?>
   <link rel="stylesheet" href="../css/style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📱</text></svg>">
 </head>
@@ -14,25 +14,25 @@
   <div class="header-inner">
     <a href="../" class="logo">
       <span class="logo-icon">H24</span>
-      <span>工具箱</span>
+      <span>工具�?/span>
     </a>
     <nav class="header-nav">
-      <a href="../">← 返回首页</a>
+      <a href="../">�?返回首页</a>
     </nav>
   </div>
 </header>
 
 <main class="tool-page">
   <div class="tool-page-header">
-    <a href="../" class="back-link">← 返回全部工具</a>
+    <a href="../" class="back-link">�?返回全部工具</a>
     <h1>📱 二维码生成器</h1>
-    <p>输入文本或链接，一键生成二维码，支持下载高清 PNG。</p>
+    <p>输入文本或链接，一键生成二维码，支持下载高�?PNG�?/p>
   </div>
 
   <div class="tool-box">
     <div class="input-group">
       <label for="qrInput">输入内容</label>
-      <textarea id="qrInput" rows="3" placeholder="输入文本、网址… 例如：https://example.com"></textarea>
+      <textarea id="qrInput" rows="3" placeholder="输入文本、网址�?例如：https://example.com"></textarea>
     </div>
 
     <div class="input-group" style="display:flex;gap:.8rem;flex-wrap:wrap">
@@ -48,28 +48,28 @@
       <div style="flex:1;min-width:120px">
         <label for="qrECC">纠错等级</label>
         <select id="qrECC">
-          <option value="L">低 (L)</option>
-          <option value="M" selected>中 (M)</option>
+          <option value="L">�?(L)</option>
+          <option value="M" selected>�?(M)</option>
           <option value="Q">较高 (Q)</option>
-          <option value="H">高 (H)</option>
+          <option value="H">�?(H)</option>
         </select>
       </div>
     </div>
 
     <div class="btn-row">
-      <button class="btn btn-primary" onclick="generateQR()">生成二维码</button>
+      <button class="btn btn-primary" onclick="generateQR()">生成二维�?/button>
       <button class="btn btn-secondary" id="downloadBtn" onclick="downloadQR()" disabled>下载 PNG</button>
     </div>
 
     <div class="result-box" style="text-align:center;padding:1.5rem;min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center">
       <div id="qrContainer" style="background:white;padding:8px;border-radius:4px;display:inline-block"></div>
-      <p id="qrHint" style="color:var(--gray-400);margin-top:1rem">点击「生成二维码」预览</p>
+      <p id="qrHint" style="color:var(--gray-400);margin-top:1rem">点击「生成二维码」预�?/p>
     </div>
   </div>
 </main>
 
 <footer class="site-footer">
-  <p>H24 工具箱 &copy; 2026 &middot; 纯前端 · 隐私安全</p>
+  <p>H24 工具�?&copy; 2026 &middot; 纯前�?· 隐私安全</p>
 </footer>
 <div id="toast" class="toast"></div>
 
@@ -86,7 +86,7 @@ function getECLevel() {
 
 function generateQR() {
   const text = $('qrInput').value.trim();
-  if (!text) { toast('⚠️ 请输入要生成的内容'); return; }
+  if (!text) { toast('⚠️ 请输入要生成的内�?); return; }
 
   const size = parseInt($('qrSize').value);
   const container = $('qrContainer');
@@ -110,12 +110,12 @@ function generateQR() {
       if (canvas) {
         currentQRDataURL = canvas.toDataURL('image/png');
         $('downloadBtn').disabled = false;
-        $('qrHint').textContent = '✅ 生成成功！点击下载保存';
-        toast('✅ 二维码已生成');
+        $('qrHint').textContent = '�?生成成功！点击下载保�?;
+        toast('�?二维码已生成');
       }
     }, 100);
   } catch(e) {
-    toast('❌ 生成失败: ' + e.message);
+    toast('�?生成失败: ' + e.message);
   }
 }
 

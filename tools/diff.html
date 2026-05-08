@@ -3,50 +3,52 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>文本对比工具 - H24 工具箱</title>
-  <meta name="description" content="免费在线文本差异对比工具，逐行对比两段文本差异，高亮显示增删改。">
+  <title>文本对比工具 - H24 工具�?/title>
+  <meta name="description" content="免费在线文本差异对比工具，逐行对比两段文本差异，高亮显示增删改�?>
   <link rel="stylesheet" href="../css/style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
 </head>
 <body>
 <header class="site-header">
   <div class="header-inner">
-    <a href="../" class="logo"><span class="logo-icon">H24</span><span>工具箱</span></a>
-    <nav class="header-nav"><a href="../">← 返回首页</a></nav>
+    <a href="../" class="logo"><span class="logo-icon">H24</span><span>工具�?/span></a>
+    <nav class="header-nav"><a href="../">�?返回首页</a></nav>
   </div>
 </header>
 <main class="tool-page">
   <div class="tool-page-header">
-    <a href="../" class="back-link">← 返回全部工具</a>
+    <a href="../" class="back-link">�?返回全部工具</a>
     <h1>📊 文本对比工具</h1>
-    <p>逐行对比两段文本的差异，绿色=新增，红色=删除。</p>
+    <p>逐行对比两段文本的差异，绿色=新增，红�?删除�?/p>
   </div>
   <div class="tool-box">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem">
       <div class="input-group">
         <label for="diffLeft">原始文本 (A)</label>
-        <textarea id="diffLeft" rows="10" placeholder="原始版本…" style="min-height:200px"></textarea>
+        <textarea id="diffLeft" rows="10" placeholder="原始版本�? style="min-height:200px"></textarea>
       </div>
       <div class="input-group">
-        <label for="diffRight">新文本 (B)</label>
-        <textarea id="diffRight" rows="10" placeholder="新版本…" style="min-height:200px"></textarea>
+        <label for="diffRight">新文�?(B)</label>
+        <textarea id="diffRight" rows="10" placeholder="新版本�? style="min-height:200px"></textarea>
       </div>
     </div>
     <div class="btn-row">
       <button class="btn btn-primary" onclick="runDiff()">🔄 对比</button>
       <button class="btn btn-secondary" onclick="loadDemo()">📄 加载示例</button>
-      <button class="btn btn-secondary" onclick="$('diffLeft').value='';$('diffRight').value='';$('diffResult').innerHTML='<span class=\'result-empty\'>等待对比…</span>'">🗑 清空</button>
+      <button class="btn btn-secondary" onclick="$('diffLeft').value='';$('diffRight').value='';$('diffResult').innerHTML='<span class=\'result-empty\'>等待对比�?/span>'">🗑 清空</button>
     </div>
     <div class="input-group">
       <label>差异结果</label>
       <div id="diffResult" class="result-box" style="min-height:100px;padding:0;overflow:hidden;font-family:monospace;font-size:.85rem">
-        <span class="result-empty" style="display:block;padding:1rem">等待对比…</span>
+        <span class="result-empty" style="display:block;padding:1rem">等待对比�?/span>
       </div>
     </div>
     <div id="diffStats" style="font-size:.85rem;margin-top:.5rem"></div>
   </div>
 </main>
-<footer class="site-footer"><p>H24 工具箱 &copy; 2026</p></footer>
+<footer class="site-footer">
+  H24 ������ &copy; 2026 &middot; ��ǰ�� �� ��˽��ȫ
+</footer>
 <div id="toast" class="toast"></div>
 <script src="../js/main.js"></script>
 <script>
@@ -75,7 +77,7 @@ function runDiff() {
   const right = $('diffRight').value;
   const result = $('diffResult');
 
-  if (!left && !right) { result.innerHTML = '<span class="result-empty" style="display:block;padding:1rem">请输入文本进行对比</span>'; return; }
+  if (!left && !right) { result.innerHTML = '<span class="result-empty" style="display:block;padding:1rem">请输入文本进行对�?/span>'; return; }
 
   const linesA = left.split('\n');
   const linesB = right.split('\n');
@@ -101,7 +103,7 @@ function runDiff() {
   $('diffStats').innerHTML = `
     <span style="color:#16a34a">+${addCount} 新增</span> ·
     <span style="color:#dc2626">-${delCount} 删除</span> ·
-    <span style="color:var(--gray-400)">${eqCount} 行相同</span> ·
+    <span style="color:var(--gray-400)">${eqCount} 行相�?/span> ·
     <span style="color:var(--gray-400)">变更 ${((addCount+delCount)/(eqCount+addCount+delCount)*100).toFixed(1)}%</span>
   `;
 }
