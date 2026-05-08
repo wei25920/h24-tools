@@ -3,153 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>颜色转换�?- H24 工具�?/title>
-  <meta name="description" content="免费在线颜色格式转换器，支持 HEX、RGB、HSL 格式互转，带实时色块预览�?>
+  <title>颜色转换器 - H24 工具箱</title>
+  <meta name="description" content="HEX / RGB / HSL 颜色格式互转，带色块实时预览。">
   <link rel="stylesheet" href="../css/style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
 </head>
 <body>
 <header class="site-header">
   <div class="header-inner">
-    <a href="../" class="logo"><span class="logo-icon">H24</span><span>工具�?/span></a>
-    <nav class="header-nav"><a href="../">�?返回首页</a></nav>
+    <a href="../" class="logo"><span class="logo-icon">H24</span><span>工具箱</span></a>
+    <nav class="header-nav"><a href="../">← 返回首页</a></nav>
   </div>
 </header>
 <main class="tool-page">
-  <div class="tool-page-header">
-    <a href="../" class="back-link">�?返回全部工具</a>
-    <h1>🎨 颜色转换�?/h1>
-    <p>HEX / RGB / HSL 格式互转，带色块实时预览�?/p>
+<div class="tool-page-header">
+  <a href="../" class="back-link">← 返回全部工具</a>
+  <h1>🎨 颜色转换器</h1>
+  <p>HEX / RGB / HSL 颜色格式互转，带色块实时预览。</p>
+</div>
+<div class="tool-box">
+  <div id="colorPrev" style="width:100%;height:100px;border-radius:8px;background:#2563eb;border:1px solid var(--gray-200);margin-bottom:1.5rem"></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem;margin-bottom:1rem">
+    <div class="input-group"><label for="hexVal">HEX</label><input type="text" id="hexVal" value="#2563eb" oninput="fromHex()"></div>
+    <div class="input-group"><label for="rgbVal">RGB</label><input type="text" id="rgbVal" value="rgb(37,99,235)" oninput="fromRgb()"></div>
+    <div class="input-group"><label for="hslVal">HSL</label><input type="text" id="hslVal" value="hsl(221,83%,53%)" oninput="fromHsl()"></div>
   </div>
-  <div class="tool-box">
-    <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1.5rem">
-      <div id="colorPreview" style="width:100%;height:100px;border-radius:8px;background:#2563eb;border:1px solid var(--gray-200)"></div>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem">
-      <div class="input-group">
-        <label for="hexInput">HEX</label>
-        <input type="text" id="hexInput" value="#2563eb" oninput="fromHEX()">
-      </div>
-      <div class="input-group">
-        <label for="rgbInput">RGB</label>
-        <input type="text" id="rgbInput" value="rgb(37,99,235)" oninput="fromRGB()">
-      </div>
-      <div class="input-group">
-        <label for="hslInput">HSL</label>
-        <input type="text" id="hslInput" value="hsl(221,83%,53%)" oninput="fromHSL()">
-      </div>
-    </div>
-    <div class="input-group" style="margin-top:1rem">
-      <label for="colorPicker">取色�?/label>
-      <input type="color" id="colorPicker" value="#2563eb" oninput="fromPicker()" style="width:60px;height:40px;padding:2px;border:1px solid var(--gray-200);border-radius:6px;cursor:pointer">
-    </div>
-    <div id="colorHistory" style="margin-top:1rem">
-      <label style="font-size:.85rem;color:var(--gray-400);margin-bottom:.5rem;display:block">最近颜�?/label>
-      <div id="historySwatches" style="display:flex;gap:.35rem;flex-wrap:wrap"></div>
-    </div>
-  </div>
+  <div class="input-group"><label for="picker">取色器</label><input type="color" id="picker" value="#2563eb" oninput="fromPicker()" style="width:60px;height:38px;padding:2px;border:1px solid var(--gray-200);border-radius:6px;cursor:pointer"></div>
+</div>
 </main>
 <footer class="site-footer">
-  H24 ������ &copy; 2026 &middot; ��ǰ�� �� ��˽��ȫ
+  H24 工具箱 &copy; 2026 &middot; 纯前端 &middot; 隐私安全
 </footer>
 <div id="toast" class="toast"></div>
 <script src="../js/main.js"></script>
 <script>
-let colorHistory = [];
-
-function setColor(r, g, b) {
-  const hex = '#' + [r,g,b].map(c => c.toString(16).padStart(2,'0')).join('');
-  $('colorPreview').style.background = hex;
-  $('hexInput').value = hex.toUpperCase();
-  $('rgbInput').value = `rgb(${r},${g},${b})`;
-  $('hslInput').value = rgbToHsl(r,g,b);
-  $('colorPicker').value = hex;
-  addToHistory(hex);
-}
-
-function fromHEX() {
-  let v = $('hexInput').value.trim();
-  if (v.startsWith('#')) v = v.slice(1);
-  if (v.length === 3) v = v.split('').map(c => c+c).join('');
-  if (v.length === 6 && /^[0-9a-fA-F]{6}$/.test(v)) {
-    const r = parseInt(v.slice(0,2),16);
-    const g = parseInt(v.slice(2,4),16);
-    const b = parseInt(v.slice(4,6),16);
-    setColor(r,g,b);
-  }
-}
-
-function fromRGB() {
-  const v = $('rgbInput').value.trim();
-  const m = v.match(/rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)/i);
-  if (m) {
-    const [_, r, g, b] = m.map(Number);
-    setColor(r,g,b);
-  }
-}
-
-function fromHSL() {
-  const v = $('hslInput').value.trim();
-  const m = v.match(/hsl\s*\(\s*(\d+)\s*,\s*(\d+)%\s*,\s*(\d+)%\s*\)/i);
-  if (m) {
-    const [r,g,b] = hslToRgb(parseInt(m[1]), parseInt(m[2])/100, parseInt(m[3])/100);
-    setColor(r,g,b);
-  }
-}
-
-function fromPicker() {
-  const hex = $('colorPicker').value;
-  $('hexInput').value = hex.toUpperCase();
-  fromHEX();
-}
-
-function rgbToHsl(r,g,b) {
-  r /= 255; g /= 255; b /= 255;
-  const max = Math.max(r,g,b), min = Math.min(r,g,b);
-  let h = 0, s = 0, l = (max+min)/2;
-  if (max !== min) {
-    const d = max - min;
-    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-    switch(max) {
-      case r: h = ((g-b)/d + (g<b?6:0)) / 6; break;
-      case g: h = ((b-r)/d + 2) / 6; break;
-      case b: h = ((r-g)/d + 4) / 6; break;
-    }
-  }
-  return `hsl(${Math.round(h*360)},${Math.round(s*100)}%,${Math.round(l*100)}%)`;
-}
-
-function hslToRgb(h,s,l) {
-  h /= 360;
-  const c = (1 - Math.abs(2*l-1)) * s;
-  const x = c * (1 - Math.abs((h*6)%2 - 1));
-  const m = l - c/2;
-  let r,g,b;
-  if (h < 1/6) { r=c; g=x; b=0; }
-  else if (h < 2/6) { r=x; g=c; b=0; }
-  else if (h < 3/6) { r=0; g=c; b=x; }
-  else if (h < 4/6) { r=0; g=x; b=c; }
-  else if (h < 5/6) { r=x; g=0; b=c; }
-  else { r=c; g=0; b=x; }
-  return [Math.round((r+m)*255), Math.round((g+m)*255), Math.round((b+m)*255)];
-}
-
-function addToHistory(hex) {
-  if (colorHistory.includes(hex)) return;
-  colorHistory.unshift(hex);
-  if (colorHistory.length > 12) colorHistory.pop();
-  renderHistory();
-}
-
-function renderHistory() {
-  const div = $('historySwatches');
-  div.innerHTML = colorHistory.map(h => 
-    `<div style="width:28px;height:28px;border-radius:6px;background:${h};border:1px solid var(--gray-200);cursor:pointer;transition:transform .15s" title="${h}" onclick="$('hexInput').value='${h}';fromHEX()"></div>`
-  ).join('');
-}
-
-// Init with default
-fromHEX();
+function setC(r,g,b){var h='#'+[r,g,b].map(function(c){return c.toString(16).padStart(2,'0')}).join('').toUpperCase();document.getElementById('colorPrev').style.background=h;document.getElementById('hexVal').value=h;document.getElementById('rgbVal').value='rgb('+r+','+g+','+b+')';document.getElementById('hslVal').value=rgb2hsl(r,g,b);document.getElementById('picker').value=h}
+function fromHex(){var v=document.getElementById('hexVal').value.replace('#','');if(v.length===3)v=v.split('').map(function(c){return c+c}).join('');if(v.length===6&&/^[0-9a-f]{6}$/i.test(v)){var r=parseInt(v.slice(0,2),16),g=parseInt(v.slice(2,4),16),b=parseInt(v.slice(4,6),16);setC(r,g,b)}}
+function fromRgb(){var m=document.getElementById('rgbVal').value.match(/rgb\s*\((\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)/i);if(m)setC(parseInt(m[1]),parseInt(m[2]),parseInt(m[3]))}
+function fromHsl(){var m=document.getElementById('hslVal').value.match(/hsl\s*\((\d+)\s*,\s*(\d+)%\s*,\s*(\d+)%\s*\)/i);if(m){var a=hsl2rgb(parseInt(m[1]),parseInt(m[2])/100,parseInt(m[3])/100);setC(a[0],a[1],a[2])}}
+function fromPicker(){document.getElementById('hexVal').value=document.getElementById('picker').value.toUpperCase();fromHex()}
+function rgb2hsl(r,g,b){r/=255;g/=255;b/=255;var M=Math.max(r,g,b),m=Math.min(r,g,b),l=(M+m)/2;if(M===m)return'hsl(0,0%,'+Math.round(l*100)+'%)';var d=M-m,s=l>.5?d/(2-M-m):d/(M+m);var h;(M===r)?h=(g-b)/d+(g<b?6:0):(M===g)?h=(b-r)/d+2:h=(r-g)/d+4;h/=6;return'hsl('+Math.round(h*360)+','+Math.round(s*100)+'%,'+Math.round(l*100)+'%)'}
+function hsl2rgb(h,s,l){h/=360;var c=(1-Math.abs(2*l-1))*s,x=c*(1-Math.abs((h*6)%2-1)),m=l-c/2;var r,g,b;if(h<1/6){r=c;g=x;b=0}else if(h<2/6){r=x;g=c;b=0}else if(h<3/6){r=0;g=c;b=x}else if(h<4/6){r=0;g=x;b=c}else if(h<5/6){r=x;g=0;b=c}else{r=c;g=0;b=x}return[Math.round((r+m)*255),Math.round((g+m)*255),Math.round((b+m)*255)]}
+fromHex();
 </script>
 </body>
 </html>

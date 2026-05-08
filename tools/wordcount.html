@@ -3,68 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>字数统计 - H24 工具�?/title>
-  <meta name="description" content="免费在线字数统计工具，支持中英文、字符数、单词数、行数、段落数实时统计�?>
+  <title>字数统计 - H24 工具箱</title>
+  <meta name="description" content="实时统计中英文字数、字符数、单词数、行数、段落数。">
   <link rel="stylesheet" href="../css/style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📝</text></svg>">
 </head>
 <body>
 <header class="site-header">
   <div class="header-inner">
-    <a href="../" class="logo"><span class="logo-icon">H24</span><span>工具�?/span></a>
-    <nav class="header-nav"><a href="../">�?返回首页</a></nav>
+    <a href="../" class="logo"><span class="logo-icon">H24</span><span>工具箱</span></a>
+    <nav class="header-nav"><a href="../">← 返回首页</a></nav>
   </div>
 </header>
 <main class="tool-page">
-  <div class="tool-page-header">
-    <a href="../" class="back-link">�?返回全部工具</a>
-    <h1>📝 字数统计</h1>
-    <p>实时统计中英文字数、字符数、单词数、行数、段落数�?/p>
+<div class="tool-page-header">
+  <a href="../" class="back-link">← 返回全部工具</a>
+  <h1>📝 字数统计</h1>
+  <p>实时统计中英文字数、字符数、单词数、行数、段落数。</p>
+</div>
+<div class="tool-box">
+  <div class="input-group"><label for="wcInput">输入文本</label><textarea id="wcInput" rows="12" placeholder="输入或粘贴文本，实时统计…" oninput="updateStats()" style="min-height:250px"></textarea></div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.75rem;margin-top:1rem">
+    <div class="stat-c"><div class="stat-l">总字符</div><div class="stat-v" id="s1">0</div></div>
+    <div class="stat-c"><div class="stat-l">中文字</div><div class="stat-v" id="s2">0</div></div>
+    <div class="stat-c"><div class="stat-l">英文单词</div><div class="stat-v" id="s3">0</div></div>
+    <div class="stat-c"><div class="stat-l">数字</div><div class="stat-v" id="s4">0</div></div>
+    <div class="stat-c"><div class="stat-l">标点</div><div class="stat-v" id="s5">0</div></div>
+    <div class="stat-c"><div class="stat-l">空格</div><div class="stat-v" id="s6">0</div></div>
+    <div class="stat-c"><div class="stat-l">行数</div><div class="stat-v" id="s7">0</div></div>
+    <div class="stat-c"><div class="stat-l">段落</div><div class="stat-v" id="s8">0</div></div>
   </div>
-  <div class="tool-box">
-    <div class="input-group">
-      <label for="wcInput">输入文本</label>
-      <textarea id="wcInput" rows="10" placeholder="在此输入或粘贴文本，实时统计�? oninput="updateStats()" style="min-height:200px"></textarea>
-    </div>
-    <div id="wcStats" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.75rem;margin-top:1rem">
-      <div class="stat-card"><div class="stat-label">总字�?/div><div class="stat-value" id="statChars">0</div></div>
-      <div class="stat-card"><div class="stat-label">中文字数</div><div class="stat-value" id="statChinese">0</div></div>
-      <div class="stat-card"><div class="stat-label">英文字数</div><div class="stat-value" id="statWords">0</div></div>
-      <div class="stat-card"><div class="stat-label">数字</div><div class="stat-value" id="statDigits">0</div></div>
-      <div class="stat-card"><div class="stat-label">标点符号</div><div class="stat-value" id="statPunct">0</div></div>
-      <div class="stat-card"><div class="stat-label">空格</div><div class="stat-value" id="statSpaces">0</div></div>
-      <div class="stat-card"><div class="stat-label">行数</div><div class="stat-value" id="statLines">0</div></div>
-      <div class="stat-card"><div class="stat-label">段落</div><div class="stat-value" id="statParas">0</div></div>
-    </div>
-  </div>
-  <style>
-    .stat-card {
-      background: var(--gray-50);
-      border: 1px solid var(--gray-200);
-      border-radius: 8px;
-      padding: .8rem;
-      text-align: center;
-    }
-    .stat-label { font-size:.8rem; color: var(--gray-400); margin-bottom:.25rem; }
-    .stat-value { font-size:1.4rem; font-weight:700; color: var(--primary); }
-  </style>
+  <style>.stat-c{background:var(--gray-50);border:1px solid var(--gray-200);border-radius:8px;padding:.7rem;text-align:center}.stat-l{font-size:.78rem;color:var(--gray-400);margin-bottom:.2rem}.stat-v{font-size:1.3rem;font-weight:700;color:var(--primary)}</style>
+</div>
 </main>
 <footer class="site-footer">
-  H24 ������ &copy; 2026 &middot; ��ǰ�� �� ��˽��ȫ
+  H24 工具箱 &copy; 2026 &middot; 纯前端 &middot; 隐私安全
 </footer>
+<div id="toast" class="toast"></div>
 <script src="../js/main.js"></script>
 <script>
-function updateStats() {
-  const text = $('wcInput').value;
-  $('statChars').textContent = text.length;
-  $('statChinese').textContent = (text.match(/[\u4e00-\u9fa5\u3400-\u4dbf]/g) || '').length;
-  $('statWords').textContent = (text.match(/[a-zA-Z]+/g) || '').length;
-  $('statDigits').textContent = (text.match(/[0-9]/g) || '').length;
-  $('statPunct').textContent = (text.match(/[^\w\s\u4e00-\u9fa5]/g) || '').length;
-  $('statSpaces').textContent = (text.match(/\s/g) || '').length;
-  $('statLines').textContent = text ? text.split('\n').length : 0;
-  $('statParas').textContent = text ? text.split(/\n\s*\n/).filter(p => p.trim()).length : 0;
-}
+function updateStats(){var t=document.getElementById('wcInput').value;document.getElementById('s1').textContent=t.length;document.getElementById('s2').textContent=(t.match(/[\u4e00-\u9fff\u3400-\u4dbf]/g)||[]).length;document.getElementById('s3').textContent=(t.match(/[a-zA-Z]+/g)||[]).length;document.getElementById('s4').textContent=(t.match(/[0-9]/g)||[]).length;document.getElementById('s5').textContent=(t.match(/[^\w\s\u4e00-\u9fff]/g)||[]).length;document.getElementById('s6').textContent=(t.match(/\s/g)||[]).length;document.getElementById('s7').textContent=t?t.split('\n').length:0;document.getElementById('s8').textContent=t?t.split(/\n\s*\n/).filter(function(p){return p.trim()}).length:0}
 </script>
 </body>
 </html>

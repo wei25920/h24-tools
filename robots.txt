@@ -1,0 +1,3 @@
+﻿User-agent: *
+Allow: /
+Sitemap: https://wei25920.github.io/h24-tools/sitemap.xml

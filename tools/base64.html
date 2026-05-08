@@ -3,136 +3,54 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Base64 编解�?- H24 工具�?/title>
-  <meta name="description" content="免费在线 Base64 编解码工具，支持文本和文件互转，一键复制和下载�?>
+  <title>Base64 编解码 - H24 工具箱</title>
+  <meta name="description" content="文本与 Base64 互转，也支持文件（图片、PDF 等）转 Base64。">
   <link rel="stylesheet" href="../css/style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔐</text></svg>">
 </head>
 <body>
 <header class="site-header">
   <div class="header-inner">
-    <a href="../" class="logo"><span class="logo-icon">H24</span><span>工具�?/span></a>
-    <nav class="header-nav"><a href="../">�?返回首页</a></nav>
+    <a href="../" class="logo"><span class="logo-icon">H24</span><span>工具箱</span></a>
+    <nav class="header-nav"><a href="../">← 返回首页</a></nav>
   </div>
 </header>
 <main class="tool-page">
-  <div class="tool-page-header">
-    <a href="../" class="back-link">�?返回全部工具</a>
-    <h1>🔐 Base64 编解�?/h1>
-    <p>文本�?Base64 互转，也支持文件（图片、PDF 等）�?Base64�?/p>
+<div class="tool-page-header">
+  <a href="../" class="back-link">← 返回全部工具</a>
+  <h1>🔐 Base64 编解码</h1>
+  <p>文本与 Base64 互转，也支持文件（图片、PDF 等）转 Base64。</p>
+</div>
+<div class="tool-box">
+  <div style="display:flex;gap:.6rem;margin-bottom:1.2rem">
+    <button class="btn btn-primary" onclick="setMode('encode')" id="encBtn">编码</button>
+    <button class="btn btn-secondary" onclick="setMode('decode')" id="decBtn">解码</button>
   </div>
-  <div class="tool-box">
-    <div style="display:flex;gap:.6rem;margin-bottom:1.2rem">
-      <button class="btn btn-primary" onclick="switchMode('encode')" id="encodeBtn">�?编码</button>
-      <button class="btn btn-secondary" onclick="switchMode('decode')" id="decodeBtn">�?解码</button>
-    </div>
-    <div class="input-group">
-      <label for="base64Input">输入</label>
-      <textarea id="base64Input" rows="5" placeholder="输入要编�?解码的文本�?></textarea>
-    </div>
-    <div class="input-group">
-      <label for="base64File">或上传文件编�?/label>
-      <input type="file" id="base64File" onchange="handleFile()">
-    </div>
-    <div class="btn-row">
-      <button class="btn btn-primary" onclick="convertBase64()">🚀 执行</button>
-      <button class="btn btn-secondary" onclick="copyText($('base64Output').textContent)">📋 复制结果</button>
-      <button class="btn btn-secondary" id="downloadBase64Btn" onclick="downloadBase64Result()" disabled>💾 下载</button>
-    </div>
-    <div class="input-group">
-      <label>输出</label>
-      <div id="base64Output" class="result-box" style="min-height:80px"><span class="result-empty">等待输入�?/span></div>
-    </div>
-    <div id="base64Status"></div>
+  <div class="input-group"><label for="b64Input">输入</label><textarea id="b64Input" rows="5" placeholder="输入要编码/解码的文本…"></textarea></div>
+  <div class="input-group"><label for="b64File">或上传文件编码</label><input type="file" id="b64File" onchange="loadFile()"></div>
+  <div class="btn-row">
+    <button class="btn btn-primary" onclick="convert()">执行</button>
+    <button class="btn btn-secondary" onclick="var o=document.getElementById('b64Output');navigator.clipboard.writeText(o.textContent).then(function(){toast('已复制')})">复制</button>
   </div>
+  <div class="input-group"><label>输出</label><div id="b64Output" class="result-box" style="min-height:80px"><span class="result-empty">等待输入…</span></div></div>
+  <div id="b64Status"></div>
+</div>
 </main>
 <footer class="site-footer">
-  H24 ������ &copy; 2026 &middot; ��ǰ�� �� ��˽��ȫ
+  H24 工具箱 &copy; 2026 &middot; 纯前端 &middot; 隐私安全
 </footer>
 <div id="toast" class="toast"></div>
 <script src="../js/main.js"></script>
 <script>
-let mode = 'encode';
-let fileData = null;
-
-function switchMode(m) {
-  mode = m;
-  $('encodeBtn').className = m === 'encode' ? 'btn btn-primary' : 'btn btn-secondary';
-  $('decodeBtn').className = m === 'decode' ? 'btn btn-primary' : 'btn btn-secondary';
-  $('base64Input').placeholder = m === 'encode' ? '输入要编码的文本�? : '输入 Base64 字符串�?;
-  $('base64File').disabled = m !== 'encode';
-  $('base64File').style.opacity = m === 'encode' ? '1' : '.4';
-}
-
-function handleFile() {
-  const file = $('base64File').files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    fileData = e.target.result; // base64 data URL
-    $('base64Input').value = fileData;
-    toast(`�?已读取文�? ${file.name} (${formatSize(file.size)})`);
-  };
-  reader.readAsDataURL(file);
-}
-
-function formatSize(bytes) {
-  if (bytes < 1024) return bytes + ' B';
-  if (bytes < 1024*1024) return (bytes/1024).toFixed(1) + ' KB';
-  return (bytes/1024/1024).toFixed(1) + ' MB';
-}
-
-function convertBase64() {
-  const input = $('base64Input').value.trim();
-  const output = $('base64Output');
-  const status = $('base64Status');
-
-  if (!input) { output.innerHTML = '<span class="result-empty">请输入内�?/span>'; status.innerHTML = ''; return; }
-
-  try {
-    if (mode === 'encode') {
-      const encoded = btoa(unescape(encodeURIComponent(input)));
-      output.textContent = encoded;
-      status.innerHTML = `<div class="status-msg success">�?编码成功 · ${encoded.length} 字符</div>`;
-      $('downloadBase64Btn').disabled = true;
-    } else {
-      // Decode: try base64 �?UTF-8
-      try {
-        const decoded = decodeURIComponent(escape(atob(input)));
-        output.textContent = decoded;
-        status.innerHTML = `<div class="status-msg success">�?解码成功 · ${decoded.length} 字符</div>`;
-        $('downloadBase64Btn').disabled = false;
-      } catch {
-        // Maybe it's binary data �?offer download
-        try {
-          const binary = atob(input);
-          output.innerHTML = `<span class="result-empty">二进制数据，无法显示为文本。点�?下载"保存为文件�?/span>`;
-          status.innerHTML = `<div class="status-msg success">�?解码成功 · ${binary.length} 字节 (二进制数�?</div>`;
-          $('downloadBase64Btn').disabled = false;
-        } catch(e2) {
-          throw new Error('无效�?Base64 字符�?);
-        }
-      }
-    }
-  } catch(e) {
-    output.innerHTML = '<span class="result-empty">转换失败</span>';
-    status.innerHTML = `<div class="status-msg error">�?${e.message}</div>`;
-    $('downloadBase64Btn').disabled = true;
-  }
-}
-
-function downloadBase64Result() {
-  const input = $('base64Input').value.trim();
-  if (!input || mode !== 'decode') return;
-  try {
-    const binary = atob(input.replace(/^data:[^;]+;base64,/, ''));
-    const bytes = new Uint8Array(binary.length);
-    for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
-    const blob = new Blob([bytes]);
-    downloadBlob(blob, 'decoded_file');
-  } catch(e) {
-    toast('�?无法下载: ' + e.message);
-  }
+var b64mode='encode';
+function setMode(m){b64mode=m;document.getElementById('encBtn').className=m==='encode'?'btn btn-primary':'btn btn-secondary';document.getElementById('decBtn').className=m==='decode'?'btn btn-primary':'btn btn-secondary';document.getElementById('b64Input').placeholder=m==='encode'?'输入要编码的文本…':'输入 Base64 字符串…';document.getElementById('b64File').disabled=m!=='encode'}
+function loadFile(){var f=document.getElementById('b64File').files[0];if(!f)return;var r=new FileReader();r.onload=function(e){document.getElementById('b64Input').value=e.target.result;toast('已读取: '+f.name)};r.readAsDataURL(f)}
+function convert(){
+  var inp=document.getElementById('b64Input').value.trim(),out=document.getElementById('b64Output'),st=document.getElementById('b64Status');
+  if(!inp){out.innerHTML='<span class="result-empty">请输入内容</span>';st.innerHTML='';return}
+  try{if(b64mode==='encode'){var e=btoa(unescape(encodeURIComponent(inp)));out.textContent=e;st.innerHTML='<div class="status-msg success">✅ 编码成功 · '+e.length+' 字符</div>'}
+  else{try{var d=decodeURIComponent(escape(atob(inp)));out.textContent=d;st.innerHTML='<div class="status-msg success">✅ 解码成功</div>'}catch(e){out.innerHTML='<span class="result-empty">无法解码为文本</span>';st.innerHTML='<div class="status-msg error">❌ 无效的 Base64</div>'}}}
+  catch(e){out.innerHTML='<span class="result-empty">转换失败</span>';st.innerHTML='<div class="status-msg error">❌ '+e.message+'</div>'}
 }
 </script>
 </body>
