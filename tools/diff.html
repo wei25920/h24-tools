@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>文本对比工具 - H24 工具箱</title>
+  <meta name="description" content="免费在线文本差异对比工具，逐行对比两段文本差异，高亮显示增删改。">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../" class="logo"><span class="logo-icon">H24</span><span>工具箱</span></a>
+    <nav class="header-nav"><a href="../">← 返回首页</a></nav>
+  </div>
+</header>
+<main class="tool-page">
+  <div class="tool-page-header">
+    <a href="../" class="back-link">← 返回全部工具</a>
+    <h1>📊 文本对比工具</h1>
+    <p>逐行对比两段文本的差异，绿色=新增，红色=删除。</p>
+  </div>
+  <div class="tool-box">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem">
+      <div class="input-group">
+        <label for="diffLeft">原始文本 (A)</label>
+        <textarea id="diffLeft" rows="10" placeholder="原始版本…" style="min-height:200px"></textarea>
+      </div>
+      <div class="input-group">
+        <label for="diffRight">新文本 (B)</label>
+        <textarea id="diffRight" rows="10" placeholder="新版本…" style="min-height:200px"></textarea>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="runDiff()">🔄 对比</button>
+      <button class="btn btn-secondary" onclick="loadDemo()">📄 加载示例</button>
+      <button class="btn btn-secondary" onclick="$('diffLeft').value='';$('diffRight').value='';$('diffResult').innerHTML='<span class=\'result-empty\'>等待对比…</span>'">🗑 清空</button>
+    </div>
+    <div class="input-group">
+      <label>差异结果</label>
+      <div id="diffResult" class="result-box" style="min-height:100px;padding:0;overflow:hidden;font-family:monospace;font-size:.85rem">
+        <span class="result-empty" style="display:block;padding:1rem">等待对比…</span>
+      </div>
+    </div>
+    <div id="diffStats" style="font-size:.85rem;margin-top:.5rem"></div>
+  </div>
+</main>
+<footer class="site-footer"><p>H24 工具箱 &copy; 2026</p></footer>
+<div id="toast" class="toast"></div>
+<script src="../js/main.js"></script>
+<script>
+function loadDemo() {
+  $('diffLeft').value = `function hello() {
+  console.log("Hello World");
+  return true;
+}
+
+const name = "张三";
+console.log(name);`;
+
+  $('diffRight').value = `function hello() {
+  console.log("Hello H24!");
+  return false;
+}
+
+const name = "李四";
+const age = 28;
+console.log(name, age);`;
+  runDiff();
+}
+
+function runDiff() {
+  const left = $('diffLeft').value;
+  const right = $('diffRight').value;
+  const result = $('diffResult');
+
+  if (!left && !right) { result.innerHTML = '<span class="result-empty" style="display:block;padding:1rem">请输入文本进行对比</span>'; return; }
+
+  const linesA = left.split('\n');
+  const linesB = right.split('\n');
+
+  // LCS-based diff
+  const dp = lcsMatrix(linesA, linesB);
+  const diffLines = backtrackDiff(dp, linesA, linesB, linesA.length, linesB.length);
+
+  let html = '<table style="width:100%;border-collapse:collapse;font-family:monospace;font-size:.85rem">';
+  let addCount = 0, delCount = 0, eqCount = 0;
+  for (const d of diffLines) {
+    const cls = d.type === 'add' ? 'diff-add' : d.type === 'del' ? 'diff-del' : 'diff-eq';
+    const sign = d.type === 'add' ? '+' : d.type === 'del' ? '-' : ' ';
+    const bg = d.type === 'add' ? '#dcfce7' : d.type === 'del' ? '#fee2e2' : 'transparent';
+    html += `<tr style="background:${bg}"><td style="width:2rem;text-align:right;color:var(--gray-400);padding:.15rem .5rem;user-select:none;border-right:1px solid var(--gray-200)">${d.lno}</td><td style="width:1.5rem;text-align:center;color:${d.type === 'add' ? '#16a34a' : d.type === 'del' ? '#dc2626' : 'var(--gray-400)'};user-select:none;padding:.15rem 0">${sign}</td><td style="padding:.15rem .5rem;white-space:pre-wrap">${escapeHtml(d.text)}</td></tr>`;
+    if (d.type === 'add') addCount++;
+    else if (d.type === 'del') delCount++;
+    else eqCount++;
+  }
+  html += '</table>';
+  result.innerHTML = html;
+
+  $('diffStats').innerHTML = `
+    <span style="color:#16a34a">+${addCount} 新增</span> ·
+    <span style="color:#dc2626">-${delCount} 删除</span> ·
+    <span style="color:var(--gray-400)">${eqCount} 行相同</span> ·
+    <span style="color:var(--gray-400)">变更 ${((addCount+delCount)/(eqCount+addCount+delCount)*100).toFixed(1)}%</span>
+  `;
+}
+
+function lcsMatrix(a, b) {
+  const m = a.length, n = b.length;
+  const dp = Array.from({length: m+1}, () => new Int32Array(n+1));
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      dp[i][j] = a[i-1] === b[j-1] ? dp[i-1][j-1] + 1 : Math.max(dp[i-1][j], dp[i][j-1]);
+    }
+  }
+  return dp;
+}
+
+function backtrackDiff(dp, a, b, i, j) {
+  const result = [];
+  let lnoA = 0, lnoB = 0;
+  function walk(i, j) {
+    if (i > 0 && j > 0 && a[i-1] === b[j-1]) {
+      walk(i-1, j-1);
+      result.push({ type: 'eq', text: a[i-1], lno: ++lnoA });
+      lnoB++;
+    } else if (j > 0 && (i === 0 || dp[i][j-1] >= dp[i-1][j])) {
+      walk(i, j-1);
+      result.push({ type: 'add', text: b[j-1], lno: ++lnoB });
+    } else if (i > 0) {
+      walk(i-1, j);
+      result.push({ type: 'del', text: a[i-1], lno: ++lnoA });
+    }
+  }
+  walk(i, j);
+  return result;
+}
+
+function escapeHtml(s) {
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+</script>
+<style>
+.diff-add { background: #dcfce7; }
+.diff-del { background: #fee2e2; }
+.diff-eq { background: transparent; }
+</style>
+</body>
+</html>

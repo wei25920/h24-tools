@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>时间戳转换 - H24 工具箱</title>
+  <meta name="description" content="免费在线 Unix 时间戳与日期时间双向转换工具，支持毫秒和秒级时间戳。">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⏰</text></svg>">
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../" class="logo"><span class="logo-icon">H24</span><span>工具箱</span></a>
+    <nav class="header-nav"><a href="../">← 返回首页</a></nav>
+  </div>
+</header>
+<main class="tool-page">
+  <div class="tool-page-header">
+    <a href="../" class="back-link">← 返回全部工具</a>
+    <h1>⏰ 时间戳转换</h1>
+    <p>Unix 时间戳（秒/毫秒）与日期时间互转。</p>
+  </div>
+  <div class="tool-box">
+    <h3 style="margin-bottom:1rem;font-size:1rem">📌 当前时间</h3>
+    <div id="currentTimeDisplay" style="background:var(--primary-light);padding:.8rem 1rem;border-radius:8px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem">
+      <span id="nowDisplay" style="font-weight:600">加载中…</span>
+      <span>
+        <code id="nowTimestamp" style="background:white;padding:.3rem .6rem;border-radius:4px"></code>
+        <button class="btn btn-sm btn-secondary" onclick="copyNowTimestamp()" style="margin-left:.4rem">📋 复制</button>
+      </span>
+    </div>
+
+    <hr style="margin:1.5rem 0;border:none;border-top:1px solid var(--gray-200)">
+
+    <h3 style="margin-bottom:1rem;font-size:1rem">🔄 时间戳 → 日期</h3>
+    <div class="input-group">
+      <label for="tsInput">输入时间戳</label>
+      <div style="display:flex;gap:.5rem">
+        <input type="text" id="tsInput" placeholder="例如：1700000000 或 1700000000000" style="flex:1">
+        <select id="tsUnit" style="width:auto">
+          <option value="auto">自动检测</option>
+          <option value="s">秒</option>
+          <option value="ms">毫秒</option>
+        </select>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="tsToDate()">⬇ 转换</button>
+      <button class="btn btn-secondary" onclick="$('tsInput').value=Math.floor(Date.now()/1000);tsToDate()">🕐 当前时间戳</button>
+    </div>
+    <div id="tsToDateResult" class="result-box" style="min-height:50px"><span class="result-empty">等待输入…</span></div>
+
+    <hr style="margin:1.5rem 0;border:none;border-top:1px solid var(--gray-200)">
+
+    <h3 style="margin-bottom:1rem;font-size:1rem">🔄 日期 → 时间戳</h3>
+    <div class="input-group">
+      <label for="dateInput">输入日期时间</label>
+      <input type="datetime-local" id="dateInput">
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="dateToTs()">⬆ 转换</button>
+    </div>
+    <div id="dateToTsResult" class="result-box" style="min-height:50px"><span class="result-empty">等待输入…</span></div>
+  </div>
+</main>
+<footer class="site-footer"><p>H24 工具箱 &copy; 2026</p></footer>
+<div id="toast" class="toast"></div>
+<script src="../js/main.js"></script>
+<script>
+function updateClock() {
+  const now = new Date();
+  $('nowDisplay').textContent = now.toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false }) + ' (北京时间)';
+  const sec = Math.floor(now.getTime() / 1000);
+  const ms = now.getTime();
+  $('nowTimestamp').textContent = `${sec} (秒) / ${ms} (毫秒)`;
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+function copyNowTimestamp() {
+  copyText(Math.floor(Date.now() / 1000).toString());
+}
+
+function tsToDate() {
+  const input = $('tsInput').value.trim();
+  const output = $('tsToDateResult');
+  if (!input) { output.innerHTML = '<span class="result-empty">请输入时间戳</span>'; return; }
+  const ts = parseInt(input);
+  if (isNaN(ts)) { output.innerHTML = '<span class="result-empty">❌ 无效的时间戳</span>'; return; }
+  let unit = $('tsUnit').value;
+  if (unit === 'auto') {
+    unit = input.length >= 13 ? 'ms' : 's';
+  }
+  const ms = unit === 'ms' ? ts : ts * 1000;
+  const d = new Date(ms);
+  if (isNaN(d.getTime())) { output.innerHTML = '<span class="result-empty">❌ 无效的日期</span>'; return; }
+  const locales = ['zh-CN', 'en-US', 'ja-JP'];
+  const times = locales.map(locale => {
+    return d.toLocaleString(locale, { timeZone: 'Asia/Shanghai', hour12: false }) + ` (${locale})`;
+  }).join('\n');
+  const utc = d.toUTCString();
+  const iso = d.toISOString();
+  output.innerHTML = `<pre style="margin:0;font-family:inherit;line-height:1.8">
+  <b>北京时间:</b> ${d.toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai', hour12: false })}
+  <b>UTC:</b>       ${utc}
+  <b>ISO 8601:</b>  ${iso}
+  <b>时间戳(秒):</b> ${Math.floor(d.getTime() / 1000)}
+  <b>时间戳(毫秒):</b> ${d.getTime()}
+  <b>星期:</b>       ${['日','一','二','三','四','五','六'][d.getDay()]}
+  </pre>`;
+}
+
+function dateToTs() {
+  const val = $('dateInput').value;
+  const output = $('dateToTsResult');
+  if (!val) { output.innerHTML = '<span class="result-empty">请选择或输入日期时间</span>'; return; }
+  const d = new Date(val);
+  if (isNaN(d.getTime())) { output.innerHTML = '<span class="result-empty">❌ 无效的日期</span>'; return; }
+  output.innerHTML = `<pre style="margin:0;font-family:inherit;line-height:1.8">
+  <b>秒级时间戳:</b>  ${Math.floor(d.getTime() / 1000)}
+  <b>毫秒级时间戳:</b> ${d.getTime()}
+  </pre>`;
+}
+
+// Set default datetime to now
+(function() {
+  const now = new Date();
+  const offset = now.getTimezoneOffset();
+  const local = new Date(now.getTime() - offset * 60000);
+  $('dateInput').value = local.toISOString().slice(0, 16);
+})();
+</script>
+</body>
+</html>

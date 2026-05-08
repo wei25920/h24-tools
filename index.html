@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>H24 工具箱 - 在线实用工具合集</title>
+  <meta name="description" content="免费在线工具：二维码生成、JSON格式化、密码生成、Base64编解码、时间戳转换、URL编解码、字数统计、颜色转换等，无需下载安装。">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔧</text></svg>">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="logo">
+      <span class="logo-icon">H24</span>
+      <span>工具箱</span>
+    </a>
+    <nav class="header-nav">
+      <a href="#tools">全部工具</a>
+      <a href="#about">关于</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>🛠️ 在线工具 · 即开即用</h1>
+  <p>免费、无广告、纯前端处理，你的数据不会上传到服务器。</p>
+  <div class="hero-search">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="searchInput" placeholder="搜索工具..." oninput="filterTools()">
+  </div>
+</section>
+
+<section class="tools-section" id="tools">
+  <div class="section-header">
+    <h2>📦 全部工具 <span class="tool-count" id="toolCount"></span></h2>
+  </div>
+  <div class="tool-grid" id="toolGrid">
+    <!-- cards injected by JS -->
+  </div>
+</section>
+
+<section class="tools-section" id="about" style="padding-top:0">
+  <div class="tool-box" style="max-width:700px;margin:0 auto">
+    <h3 style="margin-bottom:.8rem">关于 H24 工具箱</h3>
+    <p style="color:var(--gray-500);line-height:1.8">
+      所有工具均为纯前端实现，你的数据仅在浏览器本地处理，不会上传到任何服务器。
+      完全免费使用，无需注册登录。
+    </p>
+    <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--gray-200)">
+      <h4 style="margin-bottom:.8rem;font-size:.95rem">☕ 支持我们</h4>
+      <p style="color:var(--gray-500);font-size:.9rem;line-height:1.7">
+        如果这些工具帮到了你，欢迎请我喝杯咖啡 ❤️<br>
+        你的支持是持续更新的动力！
+      </p>
+      <div style="margin-top:.8rem;display:flex;gap:1rem;flex-wrap:wrap;align-items:center">
+        <img src="../img/donate_qr.png" alt="赞赏码" style="width:120px;height:120px;border:1px solid var(--gray-200);border-radius:8px;object-fit:contain" onerror="this.style.display='none'">
+        <a href="https://afdian.com" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">爱发电</a>
+        <a href="https://ko-fi.com" target="_blank" rel="noopener" class="btn btn-secondary btn-sm">Ko-fi</a>
+      </div>
+    </div>
+    <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--gray-200)">
+      <h4 style="margin-bottom:.5rem;font-size:.95rem">📈 盈利路线图</h4>
+      <ul style="color:var(--gray-500);font-size:.85rem;line-height:2;padding-left:1.2rem">
+        <li>✅ <strong>第一阶段</strong>：免费工具上线，积累流量（当前）</li>
+        <li>🔄 <strong>第二阶段</strong>：接入 Google AdSense，广告变现</li>
+        <li>🔲 <strong>第三阶段</strong>：推出高级工具（AI 相关），付费使用</li>
+        <li>🔲 <strong>第四阶段</strong>：数字产品商店（模板/素材/电子书）</li>
+      </ul>
+    </div>
+    <p style="margin-top:1rem;color:var(--gray-400);font-size:.85rem">
+      持续更新中 · 如有建议请反馈
+    </p>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <p>H24 工具箱 &copy; 2026 &middot; 纯前端 · 隐私安全</p>
+</footer>
+
+<div id="toast" class="toast"></div>
+
+<script>
+const tools = [
+  { id: 'qrcode',         name: '二维码生成器',     desc: '将文本、链接生成二维码，支持下载 PNG',            icon: '📱', color: '#6366f1', tag: '热门' },
+  { id: 'password',       name: '密码生成器',       desc: '生成高强度随机密码，可配置长度和字符类型',         icon: '🔑', color: '#f59e0b', tag: '' },
+  { id: 'json',           name: 'JSON 格式化',      desc: '格式化/压缩/校验 JSON 数据，支持错误定位',         icon: '📋', color: '#10b981', tag: '热门' },
+  { id: 'base64',         name: 'Base64 编解码',    desc: '文本与文件互转 Base64，支持复制与下载',             icon: '🔐', color: '#8b5cf6', tag: '' },
+  { id: 'urlcode',        name: 'URL 编解码',       desc: 'URL 参数编码与解码，解决中文乱码问题',             icon: '🔗', color: '#06b6d4', tag: '' },
+  { id: 'timestamp',      name: '时间戳转换',       desc: 'Unix 时间戳与日期时间双向转换，支持毫秒',          icon: '⏰', color: '#ec4899', tag: '' },
+  { id: 'wordcount',      name: '字数统计',         desc: '统计中英文字数、字符数、行数、段落数',              icon: '📝', color: '#14b8a6', tag: '' },
+  { id: 'color',          name: '颜色转换器',       desc: 'HEX / RGB / HSL 颜色格式互转，带色块预览',         icon: '🎨', color: '#f97316', tag: '' },
+  { id: 'regex',          name: '正则测试器',       desc: '在线测试正则表达式，实时匹配高亮显示',             icon: '🧪', color: '#7c3aed', tag: '新' },
+  { id: 'diff',           name: '文本对比工具',     desc: '对比两段文本差异，高亮显示增删改',                 icon: '📊', color: '#0891b2', tag: '新' },
+];
+
+function renderTools(list) {
+  const grid = document.getElementById('toolGrid');
+  grid.innerHTML = list.map(t => `
+    <a href="tools/${t.id}.html" class="tool-card-link">
+      <div class="tool-card">
+        ${t.tag ? `<span class="card-tag ${t.tag === '热门' ? 'card-hot' : ''}">${t.tag}</span>` : ''}
+        <div class="tool-card-icon" style="background:${t.color}22;color:${t.color}">${t.icon}</div>
+        <h3>${t.name}</h3>
+        <p>${t.desc}</p>
+      </div>
+    </a>
+  `).join('');
+  document.getElementById('toolCount').textContent = `(${list.length} 个)`;
+}
+
+function filterTools() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  const filtered = tools.filter(t =>
+    t.name.includes(q) || t.desc.includes(q) || t.id.includes(q)
+  );
+  renderTools(filtered);
+}
+
+renderTools(tools);
+</script>
+</body>
+</html>
