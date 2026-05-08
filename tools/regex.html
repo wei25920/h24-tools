@@ -1,24 +1,41 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>正则测试器 - H24 工具箱</title>
+<meta name="description" content="免费在线正则表达式测试工具。">
 <link rel="stylesheet" href="../css/style.css">
-</head><body>
-<header><a href="../">H24 工具箱</a></header>
-<main><h1>正则测试器</h1>
-<p>在线测试正则表达式，实时匹配高亮。</p>
-<div><label>正则</label><input id="p" value="\d+" oninput="t()" style="font-family:monospace">
-<label>文本</label><textarea id="x" rows="4" oninput="t()">Hello 2026! 价格 99 元</textarea>
-<div id="o" style="padding:.5rem;background:var(--gray-50);border-radius:6px;min-height:40px"></div></div>
+</head>
+<body>
+<header class="site-header">
+<div class="header-inner">
+<a href="../" class="logo"><span class="logo-icon">H24</span><span>工具箱</span></a>
+<nav class="header-nav"><a href="../">返回首页</a></nav>
+</div>
+</header>
+<main class="tool-page">
+<div class="tool-page-header"><a href="../" class="back-link">返回全部工具</a><h1>正则测试器</h1><p>在线测试正则表达式，实时匹配高亮。</p></div>
+<div class="tool-box">
+<div class="input-group"><label for="reP">正则</label><input type="text" id="reP" value="\d+" style="font-family:monospace" oninput="rt()" placeholder="pattern"></div>
+<div class="input-group"><label for="reT">测试文本</label><textarea id="reT" rows="6" oninput="rt()" placeholder="输入要匹配的文本..." style="min-height:120px">Hello 2026! 价格 99 元</textarea></div>
+<div class="btn-row"><button class="btn btn-primary" onclick="rt()">测试</button></div>
+<div id="reO" class="result-box" style="min-height:80px"><span class="result-empty">等待测试...</span></div>
+</div>
 </main>
+<footer class="site-footer">H24 工具箱 &copy; 2026</footer>
+<script src="../js/main.js"></script>
 <script>
 function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
-function t(){var p=document.getElementById('p').value,x=document.getElementById('x').value;if(!p){document.getElementById('o').textContent='';return}
-try{var re=new RegExp(p,'g'),m=[],mm;while((mm=re.exec(x))!==null){m.push(mm[0]);if(mm.index===re.lastIndex)re.lastIndex++}
-var h='<span style=color:var(--gray-400)>匹配: '+m.length+' 处</span><br>';var li=0,re2=new RegExp(p,'g');
-while((mm=re2.exec(x))!==null){h+=esc(x.slice(li,mm.index));h+='<mark style=background:#fde68a;border-radius:2px>'+esc(mm[0])+'</mark>';li=re2.lastIndex;if(mm.index===re2.lastIndex)re2.lastIndex++}
-h+=esc(x.slice(li));document.getElementById('o').innerHTML=h}
-catch(e){document.getElementById('o').textContent='正则错误: '+e.message}}
-t();
+function rt(){
+var p=document.getElementById('reP').value;var t=document.getElementById('reT').value;var o=document.getElementById('reO');
+if(!p){o.innerHTML='<span class=result-empty>请输入正则</span>';return}
+try{var re=new RegExp(p,'g');var m=[],mm;while((mm=re.exec(t))!==null){m.push(mm[0]);if(mm.index===re.lastIndex)re.lastIndex++}
+if(m.length===0){o.innerHTML='<span class=result-empty>无匹配</span>';return}
+var li=0,h='',re2=new RegExp(p,'g');while((mm=re2.exec(t))!==null){h+=esc(t.slice(li,mm.index));h+='<mark style=background:#fde68a;border-radius:2px>'+esc(mm[0])+'</mark>';li=re2.lastIndex;if(mm.index===re2.lastIndex)re2.lastIndex++}
+h+=esc(t.slice(li));o.innerHTML=h+'<div style=margin-top:.3rem;color:var(--gray-500)>匹配 '+m.length+' 处</div>'}
+catch(e){o.innerHTML='<span class=result-empty>正则错误</span>'}}
+rt();
 </script>
-</body></html>
+</body>
+</html>

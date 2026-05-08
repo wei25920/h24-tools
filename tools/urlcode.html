@@ -1,17 +1,41 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>URL 编解码 - H24 工具箱</title>
+<meta name="description" content="URL 编码解码工具。">
 <link rel="stylesheet" href="../css/style.css">
-</head><body>
-<header><a href="../">H24 工具箱</a></header>
-<main><h1>URL 编解码</h1>
-<p>URL 编码与解码。</p>
-<div><textarea id="i" placeholder="输入文本..."></textarea>
-<button onclick="c('enc')">编码</button><button onclick="c('dec')">解码</button>
-<pre id="o"></pre></div>
+</head>
+<body>
+<header class="site-header">
+<div class="header-inner">
+<a href="../" class="logo"><span class="logo-icon">H24</span><span>工具箱</span></a>
+<nav class="header-nav"><a href="../">返回首页</a></nav>
+</div>
+</header>
+<main class="tool-page">
+<div class="tool-page-header"><a href="../" class="back-link">返回全部工具</a><h1>URL 编解码</h1><p>URL 编码与解码。</p></div>
+<div class="tool-box">
+<div class="input-group"><label for="urlIn">输入</label><textarea id="urlIn" rows="5" placeholder="输入要编码/解码的文本..."></textarea></div>
+<div class="btn-row">
+<button class="btn btn-primary" onclick="uc(1)">编码</button>
+<button class="btn btn-secondary" onclick="uc(0)">解码</button>
+</div>
+<label>输出</label><div id="urlOut" class="result-box" style="min-height:80px"><span class="result-empty">等待输入...</span></div>
+<div id="urlSt"></div>
+</div>
 </main>
+<footer class="site-footer">H24 工具箱 &copy; 2026</footer>
+<script src="../js/main.js"></script>
 <script>
-function c(m){var i=document.getElementById('i').value;if(!i)return;var o=document.getElementById('o');try{o.textContent=m==='enc'?encodeURIComponent(i):decodeURIComponent(i)}catch(e){o.textContent='错误: '+e.message}}
+function uc(m){
+var i=document.getElementById('urlIn').value;
+var o=document.getElementById('urlOut');
+var s=document.getElementById('urlSt');
+if(!i){o.innerHTML='<span class=result-empty>请输入内容</span>';s.innerHTML='';return}
+try{var r=m?encodeURIComponent(i):decodeURIComponent(i);o.textContent=r;s.innerHTML='<div class=status-msg success>转换成功</div>'}
+catch(e){o.innerHTML='<span class=result-empty>转换失败</span>';s.innerHTML='<div class=status-msg error>'+e.message+'</div>'}}
 </script>
-</body></html>
+</body>
+</html>

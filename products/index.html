@@ -1,229 +1,47 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>鏁板瓧浜у搧 - H24 鍟嗗簵</title>
-  <meta name="description" content="H24 鏁板瓧鍟嗗簵锛屾彁渚涘紑鍙戣€呮ā鏉裤€丯otion 妯℃澘銆佽璁＄礌鏉愮瓑鏁板瓧浜у搧锛屽嵆涔板嵆鐢ㄣ€?>
-  <link rel="stylesheet" href="../css/style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>馃泹锔?/text></svg>">
-  <style>
-    .products-hero {
-      text-align: center;
-      padding: 3.5rem 1.5rem 2.5rem;
-      background: linear-gradient(135deg, #fdf2f8 0%, #fff1f2 50%, #fef9c3 100%);
-    }
-    .products-hero h1 { font-size: 2rem; font-weight: 800; color: var(--gray-900); margin-bottom: .6rem; }
-    .products-hero p { font-size: 1rem; color: var(--gray-500); max-width: 500px; margin: 0 auto; }
-    .products-section { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem 4rem; width: 100%; flex: 1; }
-    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.2rem; }
-
-    .product-card {
-      background: #fff;
-      border: 1px solid var(--gray-200);
-      border-radius: var(--radius);
-      overflow: hidden;
-      transition: all .25s cubic-bezier(.4,0,.2,1);
-      box-shadow: var(--shadow-sm);
-      display: flex;
-      flex-direction: column;
-    }
-    .product-card:hover {
-      border-color: transparent;
-      box-shadow: var(--shadow-hover);
-      transform: translateY(-3px);
-    }
-    .product-card .card-img {
-      width: 100%; height: 180px;
-      background: var(--gray-100);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3rem;
-      position: relative;
-      overflow: hidden;
-    }
-    .product-card .card-img .img-badge {
-      position: absolute;
-      top: .6rem; left: .6rem;
-      font-size: .7rem;
-      padding: .15rem .55rem;
-      border-radius: 999px;
-      font-weight: 600;
-    }
-    .badge-new { background: #dbeafe; color: #1d4ed8; }
-    .badge-hot { background: #fef2f2; color: #dc2626; }
-    .badge-free { background: #ecfdf5; color: #065f46; }
-
-    .product-card .card-body { padding: 1.2rem 1.3rem; flex: 1; display: flex; flex-direction: column; }
-    .product-card .card-body h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: .4rem; color: var(--gray-900); }
-    .product-card .card-body p { font-size: .85rem; color: var(--gray-500); line-height: 1.6; flex: 1; }
-    .product-card .card-footer {
-      border-top: 1px solid var(--gray-100);
-      padding: .8rem 1.3rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .product-price { font-size: 1.15rem; font-weight: 700; color: var(--primary); }
-    .product-price .orig { font-size: .8rem; color: var(--gray-400); text-decoration: line-through; margin-right: .4rem; font-weight: 400; }
-    .product-price .free { color: #059669; }
-
-    .product-card .btn-buy {
-      padding: .4rem 1rem; border-radius: 8px; border: none;
-      background: var(--primary); color: white; font-size: .83rem; font-weight: 600;
-      cursor: pointer; transition: all var(--transition); text-decoration: none !important;
-    }
-    .product-card .btn-buy:hover { background: var(--primary-dark); box-shadow: 0 3px 10px rgba(37,99,235,.3); transform: translateY(-1px); }
-    .product-card .btn-buy-outline {
-      background: transparent; border: 1.5px solid var(--primary); color: var(--primary);
-    }
-    .product-card .btn-buy-outline:hover { background: var(--primary); color: white; }
-
-    .pay-note {
-      max-width: 600px; margin: 2rem auto 0;
-      text-align: center; font-size: .83rem; color: var(--gray-400); line-height: 1.8;
-    }
-    .pay-note code { background: var(--gray-100); padding: .1rem .4rem; border-radius: 4px; font-size: .8rem; }
-
-    @media (max-width: 640px) {
-      .products-hero h1 { font-size: 1.4rem; }
-      .product-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>数字产品商店 - H24</title>
+<meta name="description" content="开发者模板、Notion 模板等数字产品。">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+.p-hero{text-align:center;padding:3rem 1.5rem 2rem;background:linear-gradient(135deg,#fdf2f8,#fff1f2,#fef9c3)}
+.p-hero h1{font-size:2rem;font-weight:800;margin-bottom:.5rem}
+.p-section{max-width:1100px;margin:0 auto;padding:2rem 1.5rem 4rem;flex:1}
+.p-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
+.p-card{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column}
+.p-card .p-head{height:120px;display:flex;align-items:center;justify-content:center;font-size:3rem}
+.p-card .p-body{padding:1rem 1.2rem;flex:1}
+.p-card .p-body h3{font-size:1rem;font-weight:600;margin-bottom:.3rem}
+.p-card .p-body p{font-size:.85rem;color:var(--gray-500);line-height:1.6}
+.p-card .p-foot{border-top:1px solid var(--gray-100);padding:.7rem 1.2rem;display:flex;justify-content:space-between;align-items:center}
+.p-card .price{font-weight:700;color:var(--primary)}
+.p-card .btn-buy{padding:.35rem .9rem;border-radius:6px;border:none;background:var(--primary);color:#fff;font-size:.83rem;font-weight:600;cursor:pointer}
+.p-card .btn-buy:hover{background:var(--primary-dark)}
+.pay-note{max-width:500px;margin:2rem auto;text-align:center;font-size:.83rem;color:var(--gray-400)}
+@media(max-width:640px){.p-grid{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
-
-<header class="site-header">
-  <div class="header-inner">
-    <a href="../" class="logo"><span class="logo-icon">H24</span><span>宸ュ叿绠?/span></a>
-    <nav class="header-nav">
-      <a href="../">鈫?宸ュ叿</a>
-      <a href="../#about">鍏充簬</a>
-    </nav>
-  </div>
-</header>
-
-<section class="products-hero">
-  <h1>馃泹锔?鏁板瓧浜у搧鍟嗗簵</h1>
-  <p>寮€鍙戣€呮晥鐜囨ā鏉?路 鍗充拱鍗崇敤 路 涓€娆¤喘涔帮紝缁堣韩浣跨敤</p>
+<header class="site-header"><div class="header-inner"><a href="../" class="logo"><span class="logo-icon">H24</span><span>商店</span></a><nav class="header-nav"><a href="../">工具</a></nav></div></header>
+<section class="p-hero"><h1>数字产品商店</h1><p>开发者效率模板，即买即用，一次购买终身使用</p></section>
+<section class="p-section">
+<div class="p-grid" id="pGrid"></div>
+<div class="pay-note">支付通过爱发电 / Gumroad 安全处理<br>购买后邮件发送下载链接</div>
 </section>
-
-<section class="products-section">
-  <div class="section-header">
-    <h2>馃摝 鍏ㄩ儴浜у搧 <span class="tool-count" id="productCount"></span></h2>
-  </div>
-  <div class="product-grid" id="productGrid"></div>
-
-  <div class="pay-note">
-    <p>馃敀 鏀粯閫氳繃 <strong>鐖卞彂鐢?/ Gumroad</strong> 瀹夊叏澶勭悊</p>
-    <p>璐拱鍚庨€氳繃閭欢鍙戦€佷笅杞介摼鎺ワ紝濡傛湁闂璇峰彂閭欢鑱旂郴</p>
-  </div>
-</section>
-
-<footer class="site-footer">`n  H24 工具箱 &copy; 2026 &middot; 数字产品 &middot; <a href="../">返回工具</a>`n</footer>
-<div id="toast" class="toast"></div>
-<script src="../js/main.js"></script>
+<footer class="site-footer">H24 工具箱 &copy; 2026</footer>
 <script>
-const products = [
-  {
-    id: 'dev-resume',
-    name: '馃敄 寮€鍙戣€呯畝鍘嗘ā鏉?,
-    desc: '涓撲负绋嬪簭鍛樿璁＄殑 ATS 鍙嬪ソ绠€鍘嗘ā鏉裤€傛敮鎸?Markdown / Word / HTML 涓夋牸寮忥紝鍚?STAR 娉曞垯鍐欎綔鎸囧崡鍜屽叧閿瘝浼樺寲寤鸿銆?,
-    price: '楼9.9',
-    origPrice: '',
-    badge: '鐑棬',
-    badgeClass: 'badge-hot',
-    url: '#',
-    color: '#6366f1'
-  },
-  {
-    id: 'notion-dashboard',
-    name: '馃搵 Notion 椤圭洰绠＄悊闈㈡澘',
-    desc: '涓€绔欏紡椤圭洰绠＄悊 Notion 妯℃澘銆備换鍔＄湅鏉裤€丱KR 杩借釜銆佸懆鎶ヨ嚜鍔ㄦ眹鎬汇€佹椂闂寸嚎瑙嗗浘锛岄€傚悎鐙珛寮€鍙戣€呭拰 5 浜哄唴灏忓洟闃熴€?,
-    price: '楼19.9',
-    origPrice: '楼29.9',
-    badge: '鏂?,
-    badgeClass: 'badge-new',
-    url: '#',
-    color: '#10b981'
-  },
-  {
-    id: 'chrome-extension-starter',
-    name: '馃З Chrome 鎵╁睍鍚姩濂椾欢',
-    desc: 'Chrome 鎵╁睍寮€鍙戣剼鎵嬫灦銆侻anifest V3銆丳opup/Options/Background 涓変欢濂椼€佹秷鎭€氫俊绀轰緥銆佷竴閿墦鍖呰剼鏈€俆S + React 鐗堟湰銆?,
-    price: '楼29.9',
-    origPrice: '',
-    badge: '',
-    badgeClass: '',
-    url: '#',
-    color: '#f59e0b'
-  },
-  {
-    id: 'meal-planner',
-    name: '馃搮 姣忓懆椋熻氨瑙勫垝琛?,
-    desc: 'Notion / Excel 鍙岀増鏈€傚懆椋熻氨瑙勫垝銆佽喘鐗╂竻鍗曡嚜鍔ㄧ敓鎴愩€佺儹閲忎及绠椼€侀鏉愭秷鑰楄拷韪€傞€傚悎鍋ヨ韩鍜屽搴ギ椋熺鐞嗐€?,
-    price: '楼9.9',
-    origPrice: '',
-    badge: '',
-    badgeClass: '',
-    url: '#',
-    color: '#ec4899'
-  },
-  {
-    id: 'markdown-resume',
-    name: '鉁嶏笍 鏋佺畝 Markdown 绠€鍘?,
-    desc: '绾?Markdown 绠€鍘嗘ā鏉匡紝鏃犲浣欐牱寮忋€備笓娉ㄥ唴瀹癸紝涓€閿鍑?PDF銆傞€傚悎鎶曢€掑浼佸拰 Tech 鍏徃锛孉4 鎺掔増浼樺寲銆?,
-    price: '鍏嶈垂',
-    origPrice: '',
-    badge: '鍏嶈垂',
-    badgeClass: 'badge-free',
-    url: '#',
-    color: '#14b8a6'
-  },
-  {
-    id: 'dev-cheatsheet',
-    name: '馃摉 寮€鍙戣€呴€熸煡鎵嬪唽 PDF',
-    desc: 'Git 鍛戒护 路 Docker 鍛戒护 路 Linux 鍛戒护 路 VS Code 蹇嵎閿?路 姝ｅ垯閫熸煡锛屼竴椤垫祿缂╋紝鎵撳嵃鎴栧瓨鎵嬫満闅忔椂鏌ャ€?,
-    price: '楼4.9',
-    origPrice: '',
-    badge: '',
-    badgeClass: '',
-    url: '#',
-    color: '#0891b2'
-  }
+var prods=[
+{name:'开发者简历模板',desc:'ATS 友好简历模板，Markdown/Word/HTML 三格式，含 STAR 写法指南。',icon:'📄',price:'9.9',color:'#6366f1'},
+{name:'Notion 项目面板',desc:'任务看板、OKR 追踪、周报汇总，适合小团队和个人开发者。',icon:'📋',price:'19.9',color:'#10b981',old:'29.9'},
+{name:'Chrome 扩展套件',desc:'Manifest V3，TS + React，消息通信示例，一键打包脚本。',icon:'🧩',price:'29.9',color:'#f59e0b'},
+{name:'开发者速查手册',desc:'Git / Docker / Linux 命令 + VS Code 快捷键 + 正则，一页浓缩。',icon:'📖',price:'4.9',color:'#0891b2'},
+{name:'每周食谱规划表',desc:'Notion/Excel 版本，购物清单自动生成，热量估算。',icon:'📅',price:'9.9',color:'#ec4899'},
+{name:'极简 Markdown 简历',desc:'纯 Markdown 简历，专注内容，一键导出 PDF，外企友好。',icon:'✍️',price:'免费',color:'#14b8a6',free:true}
 ];
-
-function renderProducts(list) {
-  const grid = document.getElementById('productGrid');
-  grid.innerHTML = list.map(p => {
-    const isFree = p.price === '鍏嶈垂';
-    const isComing = p.url === '#';
-    return `
-    <div class="product-card">
-      <div class="card-img" style="background:linear-gradient(135deg, ${p.color}22, ${p.color}11)">
-        ${p.badge ? `<span class="img-badge ${p.badgeClass}">${p.badge}</span>` : ''}
-        <span style="font-size:3.5rem">${p.name.split(' ')[0]}</span>
-      </div>
-      <div class="card-body">
-        <h3>${p.name}</h3>
-        <p>${p.desc}</p>
-      </div>
-      <div class="card-footer">
-        <div class="product-price">
-          ${p.origPrice ? `<span class="orig">${p.origPrice}</span>` : ''}
-          <span${isFree ? ' class="free"' : ''}>${p.price}</span>
-        </div>
-        ${isComing
-          ? `<span class="btn btn-sm" style="background:var(--gray-100);color:var(--gray-400);cursor:default">鍗冲皢涓婃灦</span>`
-          : `<a href="${p.url}" target="_blank" rel="noopener" class="btn-buy ${isFree ? 'btn-buy-outline' : ''}">${isFree ? '鍏嶈垂涓嬭浇' : '绔嬪嵆璐拱'}</a>`
-        }
-      </div>
-    </div>`;
-  }).join('');
-  document.getElementById('productCount').textContent = `(${list.length} 涓?`;
-}
-renderProducts(products);
+document.getElementById('pGrid').innerHTML=prods.map(function(p){return'<div class=p-card><div class=p-head style=background:linear-gradient(135deg,'+p.color+'22,'+p.color+'11)>'+p.icon+'</div><div class=p-body><h3>'+p.name+'</h3><p>'+p.desc+'</p></div><div class=p-foot><div class=price>'+(p.old?'<s style=color:var(--gray-400);font-size:.8rem>'+p.old+'</s> ':'')+(p.free?'<span style=color:#059673>免费</span>':'<span>'+p.price+'</span>')+'</div><button class=btn-buy>'+(p.free?'免费下载':'购买')+'</button></div></div>'}).join('');
 </script>
 </body>
 </html>

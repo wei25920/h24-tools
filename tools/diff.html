@@ -1,22 +1,44 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>文本对比工具 - H24 工具箱</title>
+<meta name="description" content="免费在线文本差异对比工具。">
 <link rel="stylesheet" href="../css/style.css">
-</head><body>
-<header><a href="../">H24 工具箱</a></header>
-<main><h1>文本对比工具</h1>
-<p>逐行对比两段文本差异。</p>
-<div><textarea id="a" rows="5" placeholder="原始文本..."></textarea><textarea id="b" rows="5" placeholder="新文本..."></textarea>
-<button onclick="d()">对比</button><div id="o" style="font-family:monospace;font-size:.85rem"></div></div>
+</head>
+<body>
+<header class="site-header">
+<div class="header-inner">
+<a href="../" class="logo"><span class="logo-icon">H24</span><span>工具箱</span></a>
+<nav class="header-nav"><a href="../">返回首页</a></nav>
+</div>
+</header>
+<main class="tool-page">
+<div class="tool-page-header"><a href="../" class="back-link">返回全部工具</a><h1>文本对比工具</h1><p>逐行对比两段文本差异，绿色新增，红色删除。</p></div>
+<div class="tool-box">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem">
+<div><label for="dA">原始文本 (A)</label><textarea id="dA" rows="8" style="min-height:150px" placeholder="原始版本..."></textarea></div>
+<div><label for="dB">新文本 (B)</label><textarea id="dB" rows="8" style="min-height:150px" placeholder="新版本..."></textarea></div>
+</div>
+<div class="btn-row">
+<button class="btn btn-primary" onclick="rd()">对比</button>
+<button class="btn btn-secondary" onclick="document.getElementById('dA').value='function hello(){return true;}';document.getElementById('dB').value='function hello(){return false;}';rd()">示例</button>
+</div>
+<div id="dOut" class="result-box" style="min-height:80px;padding:0;font-family:monospace;font-size:.85rem"><span class="result-empty" style="display:block;padding:1rem">等待对比...</span></div>
+</div>
 </main>
+<footer class="site-footer">H24 工具箱 &copy; 2026</footer>
+<script src="../js/main.js"></script>
 <script>
 function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
-function d(){var a=document.getElementById('a').value.split('\n'),b=document.getElementById('b').value.split('\n');if(!a.join()&&!b.join()){document.getElementById('o').textContent='';return}
+function rd(){
+var a=document.getElementById('dA').value.split('\n');var b=document.getElementById('dB').value.split('\n');var o=document.getElementById('dOut');
+if(!a.join('')&&!b.join('')){o.innerHTML='<span class=result-empty>请输入文本</span>';return}
 var dp=Array.from({length:a.length+1},function(){return new Int32Array(b.length+1)});
 for(var i=1;i<=a.length;i++)for(var j=1;j<=b.length;j++)dp[i][j]=a[i-1]===b[j-1]?dp[i-1][j-1]+1:Math.max(dp[i-1][j],dp[i][j-1]);
 var r=[];function w(i,j){if(i>0&&j>0&&a[i-1]===b[j-1]){w(i-1,j-1);r.push({t:'e',v:a[i-1]})}else if(j>0&&(i===0||dp[i][j-1]>=dp[i-1][j])){w(i,j-1);r.push({t:'+',v:b[j-1]})}else if(i>0){w(i-1,j);r.push({t:'-',v:a[i-1]})}}
-w(a.length,b.length);var h='<table style=width:100%>';r.forEach(function(d){var bg=d.t==='+'?'#dcfce7':d.t==='-'?'#fee2e2':'transparent';h+='<tr style=background:'+bg+'><td style=text-align:center;color:'+(d.t==='+'?'#16a34a':d.t==='-'?'#dc2626':'var(--gray-400)')+';width:1.5rem>'+d.t+'</td><td style=padding:.1rem .5rem>'+esc(d.v)+'</td></tr>'});
-h+='</table>';document.getElementById('o').innerHTML=h}
+w(a.length,b.length);var h='<table style=width:100%;border-collapse:collapse>';r.forEach(function(d){var bg=d.t==='+'?'#dcfce7':d.t==='-'?'#fee2e2':'transparent';var sn=d.t==='+'?'+':d.t==='-'?'-':' ';var sc=d.t==='+'?'#16a34a':d.t==='-'?'#dc2626':'var(--gray-400)';h+='<tr style=background:'+bg+'><td style=width:1.2rem;text-align:center;color:'+sc+';padding:.1rem .3rem>'+sn+'</td><td style=padding:.1rem .5rem;white-space:pre-wrap>'+esc(d.v)+'</td></tr>'});h+='</table>';o.innerHTML=h}
 </script>
-</body></html>
+</body>
+</html>

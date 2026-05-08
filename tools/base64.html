@@ -1,17 +1,42 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Base64 编解码 - H24 工具箱</title>
+<meta name="description" content="免费在线 Base64 编解码工具。">
 <link rel="stylesheet" href="../css/style.css">
-</head><body>
-<header><a href="../">H24 工具箱</a></header>
-<main><h1>Base64 编解码</h1>
-<p>文本与 Base64 互转。</p>
-<div><textarea id="i" placeholder="输入文本..."></textarea>
-<button onclick="c('enc')">编码</button><button onclick="c('dec')">解码</button>
-<pre id="o"></pre></div>
+</head>
+<body>
+<header class="site-header">
+<div class="header-inner">
+<a href="../" class="logo"><span class="logo-icon">H24</span><span>工具箱</span></a>
+<nav class="header-nav"><a href="../">返回首页</a></nav>
+</div>
+</header>
+<main class="tool-page">
+<div class="tool-page-header"><a href="../" class="back-link">返回全部工具</a><h1>Base64 编解码</h1><p>文本与 Base64 互转。</p></div>
+<div class="tool-box">
+<div class="input-group"><label for="b64In">输入</label><textarea id="b64In" rows="5" placeholder="输入要编码/解码的文本..."></textarea></div>
+<div class="btn-row">
+<button class="btn btn-primary" onclick="cv(1)">编码</button>
+<button class="btn btn-secondary" onclick="cv(0)">解码</button>
+</div>
+<label>输出</label><div id="b64Out" class="result-box" style="min-height:80px"><span class="result-empty">等待输入...</span></div>
+<div id="b64St"></div>
+</div>
 </main>
+<footer class="site-footer">H24 工具箱 &copy; 2026</footer>
+<script src="../js/main.js"></script>
 <script>
-function c(m){var i=document.getElementById('i').value.trim();if(!i)return;var o=document.getElementById('o');try{o.textContent=m==='enc'?btoa(unescape(encodeURIComponent(i))):decodeURIComponent(escape(atob(i)))}catch(e){o.textContent='错误: '+e.message}}
+function cv(m){
+var i=document.getElementById('b64In').value.trim();
+var o=document.getElementById('b64Out');
+var s=document.getElementById('b64St');
+if(!i){o.innerHTML='<span class=result-empty>请输入内容</span>';s.innerHTML='';return}
+try{if(m){var r=btoa(unescape(encodeURIComponent(i)));o.textContent=r;s.innerHTML='<div class=status-msg success>编码成功</div>'}
+else{var r=decodeURIComponent(escape(atob(i)));o.textContent=r;s.innerHTML='<div class=status-msg success>解码成功</div>'}}
+catch(e){o.innerHTML='<span class=result-empty>转换失败</span>';s.innerHTML='<div class=status-msg error>'+e.message+'</div>'}}
 </script>
-</body></html>
+</body>
+</html>

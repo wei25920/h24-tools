@@ -1,18 +1,46 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>时间戳转换 - H24 工具箱</title>
+<meta name="description" content="Unix 时间戳与日期互转。">
 <link rel="stylesheet" href="../css/style.css">
-</head><body>
-<header><a href="../">H24 工具箱</a></header>
-<main><h1>时间戳转换</h1>
-<p>Unix 时间戳与日期时间互转。</p>
-<div><label>时间戳 -> 日期</label><input id="ts" placeholder="输入时间戳..."><button onclick="t2d()">转换</button><pre id="r1"></pre></div>
-<div><label>日期 -> 时间戳</label><input type="datetime-local" id="dt"><button onclick="d2t()">转换</button><pre id="r2"></pre></div>
+</head>
+<body>
+<header class="site-header">
+<div class="header-inner">
+<a href="../" class="logo"><span class="logo-icon">H24</span><span>工具箱</span></a>
+<nav class="header-nav"><a href="../">返回首页</a></nav>
+</div>
+</header>
+<main class="tool-page">
+<div class="tool-page-header"><a href="../" class="back-link">返回全部工具</a><h1>时间戳转换</h1><p>Unix 时间戳与日期互转。</p></div>
+<div class="tool-box">
+<div class="input-group"><label for="tsIn">时间戳到日期</label><input type="text" id="tsIn" placeholder="输入时间戳，如 1700000000"></div>
+<div class="btn-row"><button class="btn btn-primary" onclick="t2d()">转换</button></div>
+<div id="tRes" class="result-box" style="min-height:50px"><span class="result-empty">等待输入...</span></div>
+<div class="input-group" style="margin-top:1.5rem"><label for="dtIn">日期到时间戳</label><input type="datetime-local" id="dtIn"></div>
+<div class="btn-row"><button class="btn btn-primary" onclick="d2t()">转换</button></div>
+<div id="dRes" class="result-box" style="min-height:50px"><span class="result-empty">等待输入...</span></div>
+</div>
 </main>
+<footer class="site-footer">H24 工具箱 &copy; 2026</footer>
+<script src="../js/main.js"></script>
 <script>
-function t2d(){var v=document.getElementById('ts').value.trim();if(!v)return;var n=parseInt(v);if(isNaN(n))return;var d=new Date(v.length>=13?n:n*1000);document.getElementById('r1').textContent='北京时间: '+d.toLocaleString('zh-CN')+'\nUTC: '+d.toUTCString()+'\nISO: '+d.toISOString()}
-function d2t(){var v=document.getElementById('dt').value;if(!v)return;var d=new Date(v);document.getElementById('r2').textContent='秒级: '+Math.floor(d.getTime()/1000)+'\n毫秒级: '+d.getTime()}
-(function(){var n=new Date();n.setMinutes(n.getMinutes()-n.getTimezoneOffset());document.getElementById('dt').value=n.toISOString().slice(0,16)})();
+function t2d(){
+var v=document.getElementById('tsIn').value.trim();
+var o=document.getElementById('tRes');
+if(!v){o.innerHTML='<span class=result-empty>请输入</span>';return}
+var t=parseInt(v);if(isNaN(t)){o.innerHTML='<span class=result-empty>无效</span>';return}
+var d=new Date(v.length>=13?t:t*1000);
+o.innerHTML='北京时间: '+d.toLocaleString('zh-CN',{hour12:false})+'<br>UTC: '+d.toUTCString()+'<br>ISO: '+d.toISOString()+'<br>毫秒: '+d.getTime()}
+function d2t(){
+var v=document.getElementById('dtIn').value;
+var o=document.getElementById('dRes');
+if(!v){o.innerHTML='<span class=result-empty>请选择日期</span>';return}
+var d=new Date(v);o.innerHTML='秒: '+Math.floor(d.getTime()/1000)+'<br>毫秒: '+d.getTime()}
+(function(){var n=new Date();n.setMinutes(n.getMinutes()-n.getTimezoneOffset());document.getElementById('dtIn').value=n.toISOString().slice(0,16)})();
 </script>
-</body></html>
+</body>
+</html>

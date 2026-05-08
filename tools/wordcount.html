@@ -1,17 +1,39 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>字数统计 - H24 工具箱</title>
+<meta name="description" content="免费在线字数统计。">
 <link rel="stylesheet" href="../css/style.css">
-</head><body>
-<header><a href="../">H24 工具箱</a></header>
-<main><h1>字数统计</h1>
-<p>实时统计中英文字数。</p>
-<div><textarea id="t" rows="8" oninput="s()" placeholder="输入文本..."></textarea>
-<div id="r"></div></div>
+</head>
+<body>
+<header class="site-header">
+<div class="header-inner">
+<a href="../" class="logo"><span class="logo-icon">H24</span><span>工具箱</span></a>
+<nav class="header-nav"><a href="../">返回首页</a></nav>
+</div>
+</header>
+<main class="tool-page">
+<div class="tool-page-header"><a href="../" class="back-link">返回全部工具</a><h1>字数统计</h1><p>实时统计中英文字数。</p></div>
+<div class="tool-box">
+<div class="input-group"><label for="wIn">输入文本</label><textarea id="wIn" rows="10" oninput="up()" placeholder="输入或粘贴文本，实时统计..." style="min-height:200px"></textarea></div>
+<div id="wRes" style="display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin-top:1rem">
+<div><div style="font-size:.75rem;color:var(--gray-400)">总字符</div><div style="font-size:1.3rem;font-weight:700;color:var(--primary)" id="s1">0</div></div>
+<div><div style="font-size:.75rem;color:var(--gray-400)">中文字</div><div style="font-size:1.3rem;font-weight:700;color:var(--primary)" id="s2">0</div></div>
+<div><div style="font-size:.75rem;color:var(--gray-400)">英文词</div><div style="font-size:1.3rem;font-weight:700;color:var(--primary)" id="s3">0</div></div>
+<div><div style="font-size:.75rem;color:var(--gray-400)">行数</div><div style="font-size:1.3rem;font-weight:700;color:var(--primary)" id="s4">0</div></div>
+</div>
+</div>
 </main>
+<footer class="site-footer">H24 工具箱 &copy; 2026</footer>
 <script>
-function s(){var t=document.getElementById('t').value;document.getElementById('r').innerHTML=
-'总字符: '+t.length+'<br>中文字: '+(t.match(/[\u4e00-\u9fff]/g)||[]).length+'<br>英文词: '+(t.match(/[a-zA-Z]+/g)||[]).length+'<br>行数: '+(t?t.split('\n').length:0)}
+function up(){
+var t=document.getElementById('wIn').value;
+document.getElementById('s1').textContent=t.length;
+document.getElementById('s2').textContent=(t.match(/[\u4e00-\u9fff]/g)||[]).length;
+document.getElementById('s3').textContent=(t.match(/[a-zA-Z]+/g)||[]).length;
+document.getElementById('s4').textContent=t?t.split('\n').length:0}
 </script>
-</body></html>
+</body>
+</html>

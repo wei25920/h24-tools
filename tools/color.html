@@ -1,26 +1,44 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>颜色转换器 - H24 工具箱</title>
+<meta name="description" content="免费在线颜色转换器。">
 <link rel="stylesheet" href="../css/style.css">
-</head><body>
-<header><a href="../">H24 工具箱</a></header>
-<main><h1>颜色转换器</h1>
-<p>HEX / RGB / HSL 格式互转。</p>
-<div id="pv" style="height:80px;border-radius:8px;background:#2563eb"></div>
-<div><label>HEX</label><input id="h" value="#2563eb" oninput="fh()"></div>
-<div><label>RGB</label><input id="r" value="rgb(37,99,235)" oninput="fr()"></div>
-<div><label>HSL</label><input id="s" value="hsl(221,83%,53%)" oninput="fs()"></div>
-<input type="color" id="pk" value="#2563eb" oninput="fk()">
+</head>
+<body>
+<header class="site-header">
+<div class="header-inner">
+<a href="../" class="logo"><span class="logo-icon">H24</span><span>工具箱</span></a>
+<nav class="header-nav"><a href="../">返回首页</a></nav>
+</div>
+</header>
+<main class="tool-page">
+<div class="tool-page-header"><a href="../" class="back-link">返回全部工具</a><h1>颜色转换器</h1><p>HEX / RGB / HSL 格式互转。</p></div>
+<div class="tool-box">
+<div id="pv" style="width:100%;height:80px;border-radius:8px;background:#2563eb;border:1px solid var(--gray-200);margin-bottom:1.5rem"></div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem">
+<div><label for="hx">HEX</label><input type="text" id="hx" value="#2563eb" oninput="fh()"></div>
+<div><label for="rg">RGB</label><input type="text" id="rg" value="rgb(37,99,235)" oninput="fr()"></div>
+<div><label for="hs">HSL</label><input type="text" id="hs" value="hsl(221,83%,53%)" oninput="fhsl()"></div>
+</div>
+<input type="color" id="pk" value="#2563eb" oninput="fp()" style="width:60px;height:38px;cursor:pointer;margin-top:1rem">
+</div>
 </main>
+<footer class="site-footer">H24 工具箱 &copy; 2026</footer>
 <script>
-function sc(r,g,b){var h='#'+[r,g,b].map(function(c){return c.toString(16).padStart(2,'0')}).join('').toUpperCase();document.getElementById('pv').style.background=h;document.getElementById('h').value=h;document.getElementById('r').value='rgb('+r+','+g+','+b+')';document.getElementById('s').value=r2h(r,g,b);document.getElementById('pk').value=h}
-function fh(){var v=document.getElementById('h').value.replace('#','');if(v.length===3)v=v.split('').map(function(c){return c+c}).join('');if(v.length===6&&/^[0-9a-f]{6}$/i.test(v))sc(parseInt(v.slice(0,2),16),parseInt(v.slice(2,4),16),parseInt(v.slice(4,6),16))}
-function fr(){var m=document.getElementById('r').value.match(/rgb\s*\((\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)/i);if(m)sc(+m[1],+m[2],+m[3])}
-function fs(){var m=document.getElementById('s').value.match(/hsl\s*\((\d+)\s*,\s*(\d+)%\s*,\s*(\d+)%\s*\)/i);if(m){var a=h2r(+m[1],+m[2]/100,+m[3]/100);sc(a[0],a[1],a[2])}}
-function fk(){document.getElementById('h').value=document.getElementById('pk').value.toUpperCase();fh()}
+function sc(r,g,b){
+var h='#'+[r,g,b].map(function(c){return c.toString(16).padStart(2,'0')}).join('').toUpperCase();
+document.getElementById('pv').style.background=h;document.getElementById('hx').value=h;
+document.getElementById('rg').value='rgb('+r+','+g+','+b+')';document.getElementById('hs').value=r2h(r,g,b);document.getElementById('pk').value=h}
+function fh(){var v=document.getElementById('hx').value.replace('#','');if(v.length===3)v=v.split('').map(function(c){return c+c}).join('');if(v.length===6&&/^[0-9a-f]{6}$/i.test(v))sc(parseInt(v.slice(0,2),16),parseInt(v.slice(2,4),16),parseInt(v.slice(4,6),16))}
+function fr(){var m=document.getElementById('rg').value.match(/rgb\s*\((\d+),(\d+),(\d+)\)/i);if(m)sc(+m[1],+m[2],+m[3])}
+function fhsl(){var m=document.getElementById('hs').value.match(/hsl\s*\((\d+),(\d+)%,(\d+)%\)/i);if(m){var a=h2r(+m[1],+m[2]/100,+m[3]/100);sc(a[0],a[1],a[2])}}
+function fp(){document.getElementById('hx').value=document.getElementById('pk').value.toUpperCase();fh()}
 function r2h(r,g,b){r/=255;g/=255;b/=255;var M=Math.max(r,g,b),m=Math.min(r,g,b),l=(M+m)/2;if(M===m)return'hsl(0,0%,'+Math.round(l*100)+'%)';var d=M-m,s=l>.5?d/(2-M-m):d/(M+m);var h;(M===r)?h=(g-b)/d+(g<b?6:0):(M===g)?h=(b-r)/d+2:h=(r-g)/d+4;h/=6;return'hsl('+Math.round(h*360)+','+Math.round(s*100)+'%,'+Math.round(l*100)+'%)'}
 function h2r(h,s,l){h/=360;var c=(1-Math.abs(2*l-1))*s,x=c*(1-Math.abs((h*6)%2-1)),m=l-c/2;var r,g,b;if(h<1/6){r=c;g=x;b=0}else if(h<2/6){r=x;g=c;b=0}else if(h<3/6){r=0;g=c;b=x}else if(h<4/6){r=0;g=x;b=c}else if(h<5/6){r=x;g=0;b=c}else{r=c;g=0;b=x}return[Math.round((r+m)*255),Math.round((g+m)*255),Math.round((b+m)*255)]}
 fh();
 </script>
-</body></html>
+</body>
+</html>

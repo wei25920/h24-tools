@@ -1,15 +1,48 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>二维码生成器 - H24 工具箱</title>
+<meta name="description" content="免费在线二维码生成器。">
 <link rel="stylesheet" href="../css/style.css">
-</head><body>
-<header><a href="../">H24 工具箱</a></header>
-<main><h1>二维码生成器</h1>
-<p>输入文本或链接，生成二维码，支持下载 PNG。</p>
-<div><textarea id="q" placeholder="输入内容..."></textarea><button onclick="g()">生成</button><div id="qr"></div></div>
+</head>
+<body>
+<header class="site-header">
+<div class="header-inner">
+<a href="../" class="logo"><span class="logo-icon">H24</span><span>工具箱</span></a>
+<nav class="header-nav"><a href="../">返回首页</a></nav>
+</div>
+</header>
+<main class="tool-page">
+<div class="tool-page-header"><a href="../" class="back-link">返回全部工具</a><h1>二维码生成器</h1><p>输入文本或链接，生成二维码，支持下载 PNG。</p></div>
+<div class="tool-box">
+<div class="input-group"><label for="qrInput">输入内容</label><textarea id="qrInput" rows="3" placeholder="输入文本或网址..."></textarea></div>
+<div class="btn-row">
+<button class="btn btn-primary" onclick="genQR()">生成二维码</button>
+<button class="btn btn-secondary" id="dlBtn" onclick="dlQR()" disabled>下载 PNG</button>
+</div>
+<div class="result-box" style="text-align:center;padding:1.5rem">
+<div id="qrBox" style="display:inline-block;background:white;padding:8px;border-radius:4px"></div>
+<p id="qrHint" style="color:var(--gray-400);margin-top:1rem">点击生成预览</p>
+</div>
+</div>
 </main>
+<footer class="site-footer">H24 工具箱 &copy; 2026</footer>
+<div id="toast" class="toast"></div>
+<script src="../js/main.js"></script>
 <script src="../js/qrcode.min.js"></script>
-<script>function g(){var t=document.getElementById('q').value.trim();if(t)try{new QRCode(document.getElementById('qr'),{text:t,width:200,height:200})}catch(e){}}
+<script>
+var qd=null;
+function genQR(){
+var t=document.getElementById('qrInput').value.trim();
+if(!t){toast('请输入内容');return}
+var s=parseInt(document.getElementById('qrSize')&&document.getElementById('qrSize').value)||200;
+var c=document.getElementById('qrBox');c.innerHTML='';
+try{new QRCode(c,{text:t,width:s,height:s,colorDark:'#000',colorLight:'#fff',correctLevel:QRCode.CorrectLevel.M});
+setTimeout(function(){var cv=c.querySelector('canvas');if(cv){qd=cv.toDataURL('image/png');document.getElementById('dlBtn').disabled=false;document.getElementById('qrHint').textContent='生成成功！可点击下载';toast('二维码已生成')}},150)}
+catch(e){toast('生成失败')}}
+function dlQR(){if(!qd)return;var a=document.createElement('a');a.href=qd;a.download='qrcode.png';a.click()}
 </script>
-</body></html>
+</body>
+</html>
