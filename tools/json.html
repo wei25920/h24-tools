@@ -1,54 +1,52 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JSON 格式化 - H24 工具箱</title>
-  <meta name="description" content="格式化、压缩、校验 JSON 数据，自动检测语法错误位置。">
+  <title>JSON 鏍煎紡鍖?- H24 宸ュ叿绠?/title>
+  <meta name="description" content="鏍煎紡鍖栥€佸帇缂┿€佹牎楠?JSON 鏁版嵁锛岃嚜鍔ㄦ娴嬭娉曢敊璇綅缃€?>
   <link rel="stylesheet" href="../css/style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📋</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>馃搵</text></svg>">
 </head>
 <body>
 <header class="site-header">
   <div class="header-inner">
-    <a href="../" class="logo"><span class="logo-icon">H24</span><span>工具箱</span></a>
-    <nav class="header-nav"><a href="../">← 返回首页</a></nav>
+    <a href="../" class="logo"><span class="logo-icon">H24</span><span>宸ュ叿绠?/span></a>
+    <nav class="header-nav"><a href="../">鈫?杩斿洖棣栭〉</a></nav>
   </div>
 </header>
 <main class="tool-page">
 <div class="tool-page-header">
-  <a href="../" class="back-link">← 返回全部工具</a>
-  <h1>📋 JSON 格式化</h1>
-  <p>格式化、压缩、校验 JSON 数据，自动检测语法错误位置。</p>
+  <a href="../" class="back-link">鈫?杩斿洖鍏ㄩ儴宸ュ叿</a>
+  <h1>馃搵 JSON 鏍煎紡鍖?/h1>
+  <p>鏍煎紡鍖栥€佸帇缂┿€佹牎楠?JSON 鏁版嵁锛岃嚜鍔ㄦ娴嬭娉曢敊璇綅缃€?/p>
 </div>
 <div class="tool-box">
   <div class="input-group">
-    <label for="jsonInput">输入 JSON</label>
+    <label for="jsonInput">杈撳叆 JSON</label>
     <textarea id="jsonInput" rows="8" placeholder='{"name":"H24","version":1}'></textarea>
   </div>
   <div class="btn-row">
-    <button class="btn btn-primary" onclick="fmt(2)">格式化</button>
-    <button class="btn btn-secondary" onclick="fmt(0)">压缩</button>
-    <button class="btn btn-secondary" onclick="fmt(4)">缩进 4</button>
-    <button class="btn btn-secondary" onclick="var o=document.getElementById('jsonOutput');navigator.clipboard.writeText(o.textContent).then(function(){toast('已复制')})">复制结果</button>
+    <button class="btn btn-primary" onclick="fmt(2)">鏍煎紡鍖?/button>
+    <button class="btn btn-secondary" onclick="fmt(0)">鍘嬬缉</button>
+    <button class="btn btn-secondary" onclick="fmt(4)">缂╄繘 4</button>
+    <button class="btn btn-secondary" onclick="var o=document.getElementById('jsonOutput');navigator.clipboard.writeText(o.textContent).then(function(){toast('宸插鍒?)})">澶嶅埗缁撴灉</button>
   </div>
-  <div class="input-group"><label>输出</label>
-    <div id="jsonOutput" class="result-box" style="min-height:120px"><span class="result-empty">等待输入…</span></div>
+  <div class="input-group"><label>杈撳嚭</label>
+    <div id="jsonOutput" class="result-box" style="min-height:120px"><span class="result-empty">绛夊緟杈撳叆鈥?/span></div>
   </div>
   <div id="jsonStatus"></div>
 </div>
 </main>
-<footer class="site-footer">
-  H24 工具箱 &copy; 2026 &middot; 纯前端 &middot; 隐私安全
-</footer>
+<footer class="site-footer">`n  H24 工具箱 &copy; 2026 &middot; <a href="../products/">数字商店</a> &middot; 纯前端 &middot; 隐私安全`n</footer>
 <div id="toast" class="toast"></div>
 <script src="../js/main.js"></script>
 <script>
 function fmt(sp){
   var inp=document.getElementById('jsonInput').value.trim(),out=document.getElementById('jsonOutput'),st=document.getElementById('jsonStatus');
-  if(!inp){out.innerHTML='<span class="result-empty">请输入 JSON</span>';st.innerHTML='';return}
-  try{var p=JSON.parse(inp),f=JSON.stringify(p,null,sp);out.textContent=f;var ln=f.split('\n').length;st.innerHTML='<div class="status-msg success">✅ 校验通过 · '+ln+' 行</div>'}
-  catch(e){out.innerHTML='<span class="result-empty">解析失败</span>';st.innerHTML='<div class="status-msg error">❌ '+e.message+'</div>'}
+  if(!inp){out.innerHTML='<span class="result-empty">璇疯緭鍏?JSON</span>';st.innerHTML='';return}
+  try{var p=JSON.parse(inp),f=JSON.stringify(p,null,sp);out.textContent=f;var ln=f.split('\n').length;st.innerHTML='<div class="status-msg success">鉁?鏍￠獙閫氳繃 路 '+ln+' 琛?/div>'}
+  catch(e){out.innerHTML='<span class="result-empty">瑙ｆ瀽澶辫触</span>';st.innerHTML='<div class="status-msg error">鉂?'+e.message+'</div>'}
 }
 document.getElementById('jsonInput').addEventListener('paste',function(){setTimeout(function(){fmt(2)},50)});
 </script>

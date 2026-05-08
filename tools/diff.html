@@ -1,51 +1,49 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>文本对比工具 - H24 工具箱</title>
-  <meta name="description" content="逐行对比两段文本差异，高亮显示增删改，适合代码和文章对比。">
+  <title>鏂囨湰瀵规瘮宸ュ叿 - H24 宸ュ叿绠?/title>
+  <meta name="description" content="閫愯瀵规瘮涓ゆ鏂囨湰宸紓锛岄珮浜樉绀哄鍒犳敼锛岄€傚悎浠ｇ爜鍜屾枃绔犲姣斻€?>
   <link rel="stylesheet" href="../css/style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>馃搳</text></svg>">
 </head>
 <body>
 <header class="site-header">
   <div class="header-inner">
-    <a href="../" class="logo"><span class="logo-icon">H24</span><span>工具箱</span></a>
-    <nav class="header-nav"><a href="../">← 返回首页</a></nav>
+    <a href="../" class="logo"><span class="logo-icon">H24</span><span>宸ュ叿绠?/span></a>
+    <nav class="header-nav"><a href="../">鈫?杩斿洖棣栭〉</a></nav>
   </div>
 </header>
 <main class="tool-page">
 <div class="tool-page-header">
-  <a href="../" class="back-link">← 返回全部工具</a>
-  <h1>📊 文本对比工具</h1>
-  <p>逐行对比两段文本差异，高亮显示增删改，适合代码和文章对比。</p>
+  <a href="../" class="back-link">鈫?杩斿洖鍏ㄩ儴宸ュ叿</a>
+  <h1>馃搳 鏂囨湰瀵规瘮宸ュ叿</h1>
+  <p>閫愯瀵规瘮涓ゆ鏂囨湰宸紓锛岄珮浜樉绀哄鍒犳敼锛岄€傚悎浠ｇ爜鍜屾枃绔犲姣斻€?/p>
 </div>
 <div class="tool-box">
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem">
-    <div class="input-group"><label for="diffA">原始文本 (A)</label><textarea id="diffA" rows="10" style="min-height:200px" placeholder="原始版本…"></textarea></div>
-    <div class="input-group"><label for="diffB">新文本 (B)</label><textarea id="diffB" rows="10" style="min-height:200px" placeholder="新版本…"></textarea></div>
+    <div class="input-group"><label for="diffA">鍘熷鏂囨湰 (A)</label><textarea id="diffA" rows="10" style="min-height:200px" placeholder="鍘熷鐗堟湰鈥?></textarea></div>
+    <div class="input-group"><label for="diffB">鏂版枃鏈?(B)</label><textarea id="diffB" rows="10" style="min-height:200px" placeholder="鏂扮増鏈€?></textarea></div>
   </div>
   <div class="btn-row">
-    <button class="btn btn-primary" onclick="runDiff()">对比</button>
-    <button class="btn btn-secondary" onclick="demo()">示例</button>
-    <button class="btn btn-secondary" onclick="document.getElementById('diffA').value='';document.getElementById('diffB').value='';document.getElementById('diffOut').innerHTML='<span class=\"result-empty\">等待对比…</span>';document.getElementById('diffStats').textContent=''">清空</button>
+    <button class="btn btn-primary" onclick="runDiff()">瀵规瘮</button>
+    <button class="btn btn-secondary" onclick="demo()">绀轰緥</button>
+    <button class="btn btn-secondary" onclick="document.getElementById('diffA').value='';document.getElementById('diffB').value='';document.getElementById('diffOut').innerHTML='<span class=\"result-empty\">绛夊緟瀵规瘮鈥?/span>';document.getElementById('diffStats').textContent=''">娓呯┖</button>
   </div>
-  <div id="diffOut" class="result-box" style="min-height:100px;padding:0;overflow:hidden;font-family:monospace;font-size:.85rem"><span class="result-empty" style="display:block;padding:1rem">等待对比…</span></div>
+  <div id="diffOut" class="result-box" style="min-height:100px;padding:0;overflow:hidden;font-family:monospace;font-size:.85rem"><span class="result-empty" style="display:block;padding:1rem">绛夊緟瀵规瘮鈥?/span></div>
   <div id="diffStats" style="font-size:.85rem;margin-top:.5rem"></div>
 </div>
 </main>
-<footer class="site-footer">
-  H24 工具箱 &copy; 2026 &middot; 纯前端 &middot; 隐私安全
-</footer>
+<footer class="site-footer">`n  H24 工具箱 &copy; 2026 &middot; <a href="../products/">数字商店</a> &middot; 纯前端 &middot; 隐私安全`n</footer>
 <div id="toast" class="toast"></div>
 <script src="../js/main.js"></script>
 <script>
 function demo(){
-  document.getElementById('diffA').value='function hello() {\n  console.log("Hello World");\n  return true;\n}\n\nconst name = "张三";\nconsole.log(name);';
-  document.getElementById('diffB').value='function hello() {\n  console.log("Hello H24!");\n  return false;\n}\n\nconst name = "李四";\nconst age = 28;\nconsole.log(name, age);';runDiff()}
+  document.getElementById('diffA').value='function hello() {\n  console.log("Hello World");\n  return true;\n}\n\nconst name = "寮犱笁";\nconsole.log(name);';
+  document.getElementById('diffB').value='function hello() {\n  console.log("Hello H24!");\n  return false;\n}\n\nconst name = "鏉庡洓";\nconst age = 28;\nconsole.log(name, age);';runDiff()}
 function runDiff(){
-  var a=document.getElementById('diffA').value,b=document.getElementById('diffB').value,out=document.getElementById('diffOut');if(!a&&!b){out.innerHTML='<span class=\"result-empty\">请输入文本对比</span>';return}
+  var a=document.getElementById('diffA').value,b=document.getElementById('diffB').value,out=document.getElementById('diffOut');if(!a&&!b){out.innerHTML='<span class=\"result-empty\">璇疯緭鍏ユ枃鏈姣?/span>';return}
   var la=a.split('\n'),lb=b.split('\n');var dp=Array.from({length:la.length+1},function(){return new Int32Array(lb.length+1)});
   for(var i=1;i<=la.length;i++)for(var j=1;j<=lb.length;j++)dp[i][j]=la[i-1]===lb[j-1]?dp[i-1][j-1]+1:Math.max(dp[i-1][j],dp[i][j-1]);
   var res=[],na=0,nb=0;function walk(i,j){if(i>0&&j>0&&la[i-1]===lb[j-1]){walk(i-1,j-1);res.push({t:'eq',v:la[i-1]})}else if(j>0&&(i===0||dp[i][j-1]>=dp[i-1][j])){walk(i,j-1);res.push({t:'add',v:lb[j-1]})}else if(i>0){walk(i-1,j);res.push({t:'del',v:la[i-1]})}}
@@ -53,7 +51,7 @@ function runDiff(){
   res.forEach(function(d){var bg=d.t==='add'?'#dcfce7':d.t==='del'?'#fee2e2':'transparent';var sign=d.t==='add'?'+':d.t==='del'?'-':' ';var sc=d.t==='add'?'#16a34a':d.t==='del'?'#dc2626':'var(--gray-400)';if(d.t==='add'){nb++;add++}else if(d.t==='del'){na++;del++}else{na++;nb++;eq++}
     html+='<tr style=background:'+bg+'><td style=width:2rem;text-align:right;color:var(--gray-400);padding:.1rem .4rem;border-right:1px solid var(--gray-200)>'+(d.t==='add'?nb:na)+'</td><td style=width:1.2rem;text-align:center;color:'+sc+';padding:.1rem 0>'+sign+'</td><td style=padding:.1rem .5rem;white-space:pre-wrap>'+esc(d.v)+'</td></tr>'});
   html+='</table>';out.innerHTML=html;
-  var total=add+del+eq;document.getElementById('diffStats').innerHTML='<span style=color:#16a34a>+'+add+' 新增</span> · <span style=color:#dc2626>-'+del+' 删除</span> · <span style=color:var(--gray-400)>'+eq+' 相同 · 变更 '+Math.round((add+del)/total*100)+'%</span>'}
+  var total=add+del+eq;document.getElementById('diffStats').innerHTML='<span style=color:#16a34a>+'+add+' 鏂板</span> 路 <span style=color:#dc2626>-'+del+' 鍒犻櫎</span> 路 <span style=color:var(--gray-400)>'+eq+' 鐩稿悓 路 鍙樻洿 '+Math.round((add+del)/total*100)+'%</span>'}
 function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
 </script>
 </body>

@@ -1,51 +1,49 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>URL 编解码 - H24 工具箱</title>
-  <meta name="description" content="URL 编码（百分号编码）与解码，解决中文和特殊字符乱码问题。">
+  <title>URL 缂栬В鐮?- H24 宸ュ叿绠?/title>
+  <meta name="description" content="URL 缂栫爜锛堢櫨鍒嗗彿缂栫爜锛変笌瑙ｇ爜锛岃В鍐充腑鏂囧拰鐗规畩瀛楃涔辩爜闂銆?>
   <link rel="stylesheet" href="../css/style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔗</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>馃敆</text></svg>">
 </head>
 <body>
 <header class="site-header">
   <div class="header-inner">
-    <a href="../" class="logo"><span class="logo-icon">H24</span><span>工具箱</span></a>
-    <nav class="header-nav"><a href="../">← 返回首页</a></nav>
+    <a href="../" class="logo"><span class="logo-icon">H24</span><span>宸ュ叿绠?/span></a>
+    <nav class="header-nav"><a href="../">鈫?杩斿洖棣栭〉</a></nav>
   </div>
 </header>
 <main class="tool-page">
 <div class="tool-page-header">
-  <a href="../" class="back-link">← 返回全部工具</a>
-  <h1>🔗 URL 编解码</h1>
-  <p>URL 编码（百分号编码）与解码，解决中文和特殊字符乱码问题。</p>
+  <a href="../" class="back-link">鈫?杩斿洖鍏ㄩ儴宸ュ叿</a>
+  <h1>馃敆 URL 缂栬В鐮?/h1>
+  <p>URL 缂栫爜锛堢櫨鍒嗗彿缂栫爜锛変笌瑙ｇ爜锛岃В鍐充腑鏂囧拰鐗规畩瀛楃涔辩爜闂銆?/p>
 </div>
 <div class="tool-box">
   <div style="display:flex;gap:.6rem;margin-bottom:1.2rem">
-    <button class="btn btn-primary" onclick="setMode('encode')" id="urlEncBtn">编码</button>
-    <button class="btn btn-secondary" onclick="setMode('decode')" id="urlDecBtn">解码</button>
+    <button class="btn btn-primary" onclick="setMode('encode')" id="urlEncBtn">缂栫爜</button>
+    <button class="btn btn-secondary" onclick="setMode('decode')" id="urlDecBtn">瑙ｇ爜</button>
   </div>
-  <div class="input-group"><label for="urlInput">输入</label><textarea id="urlInput" rows="5" placeholder="输入要编码/解码的文本…"></textarea></div>
+  <div class="input-group"><label for="urlInput">杈撳叆</label><textarea id="urlInput" rows="5" placeholder="杈撳叆瑕佺紪鐮?瑙ｇ爜鐨勬枃鏈€?></textarea></div>
   <div class="btn-row">
-    <button class="btn btn-primary" onclick="convertURL()">执行</button>
-    <button class="btn btn-secondary" onclick="swap()">互换</button>
-    <button class="btn btn-secondary" onclick="var o=document.getElementById('urlOutput');navigator.clipboard.writeText(o.textContent).then(function(){toast('已复制')})">复制</button>
+    <button class="btn btn-primary" onclick="convertURL()">鎵ц</button>
+    <button class="btn btn-secondary" onclick="swap()">浜掓崲</button>
+    <button class="btn btn-secondary" onclick="var o=document.getElementById('urlOutput');navigator.clipboard.writeText(o.textContent).then(function(){toast('宸插鍒?)})">澶嶅埗</button>
   </div>
-  <div class="input-group"><label>输出</label><div id="urlOutput" class="result-box" style="min-height:80px"><span class="result-empty">等待输入…</span></div></div>
+  <div class="input-group"><label>杈撳嚭</label><div id="urlOutput" class="result-box" style="min-height:80px"><span class="result-empty">绛夊緟杈撳叆鈥?/span></div></div>
   <div id="urlStatus"></div>
 </div>
 </main>
-<footer class="site-footer">
-  H24 工具箱 &copy; 2026 &middot; 纯前端 &middot; 隐私安全
-</footer>
+<footer class="site-footer">`n  H24 工具箱 &copy; 2026 &middot; <a href="../products/">数字商店</a> &middot; 纯前端 &middot; 隐私安全`n</footer>
 <div id="toast" class="toast"></div>
 <script src="../js/main.js"></script>
 <script>
 var urlMode='encode';
 function setMode(m){urlMode=m;document.getElementById('urlEncBtn').className=m==='encode'?'btn btn-primary':'btn btn-secondary';document.getElementById('urlDecBtn').className=m==='decode'?'btn btn-primary':'btn btn-secondary'}
-function convertURL(){var inp=document.getElementById('urlInput').value,out=document.getElementById('urlOutput'),st=document.getElementById('urlStatus');if(!inp){out.innerHTML='<span class="result-empty">请输入内容</span>';st.innerHTML='';return}
-try{var r=urlMode==='encode'?encodeURIComponent(inp):decodeURIComponent(inp);out.textContent=r;st.innerHTML='<div class="status-msg success">✅ 成功 · '+r.length+' 字符</div>'}catch(e){out.innerHTML='<span class="result-empty">转换失败</span>';st.innerHTML='<div class="status-msg error">❌ '+e.message+'</div>'}}
+function convertURL(){var inp=document.getElementById('urlInput').value,out=document.getElementById('urlOutput'),st=document.getElementById('urlStatus');if(!inp){out.innerHTML='<span class="result-empty">璇疯緭鍏ュ唴瀹?/span>';st.innerHTML='';return}
+try{var r=urlMode==='encode'?encodeURIComponent(inp):decodeURIComponent(inp);out.textContent=r;st.innerHTML='<div class="status-msg success">鉁?鎴愬姛 路 '+r.length+' 瀛楃</div>'}catch(e){out.innerHTML='<span class="result-empty">杞崲澶辫触</span>';st.innerHTML='<div class="status-msg error">鉂?'+e.message+'</div>'}}
 function swap(){var o=document.getElementById('urlOutput');document.getElementById('urlInput').value=o.textContent;convertURL()}
 </script>
 </body>

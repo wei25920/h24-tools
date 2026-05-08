@@ -1,60 +1,58 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>时间戳转换 - H24 工具箱</title>
-  <meta name="description" content="Unix 时间戳（秒/毫秒）与日期时间双向转换。">
+  <title>鏃堕棿鎴宠浆鎹?- H24 宸ュ叿绠?/title>
+  <meta name="description" content="Unix 鏃堕棿鎴筹紙绉?姣锛変笌鏃ユ湡鏃堕棿鍙屽悜杞崲銆?>
   <link rel="stylesheet" href="../css/style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⏰</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>鈴?/text></svg>">
 </head>
 <body>
 <header class="site-header">
   <div class="header-inner">
-    <a href="../" class="logo"><span class="logo-icon">H24</span><span>工具箱</span></a>
-    <nav class="header-nav"><a href="../">← 返回首页</a></nav>
+    <a href="../" class="logo"><span class="logo-icon">H24</span><span>宸ュ叿绠?/span></a>
+    <nav class="header-nav"><a href="../">鈫?杩斿洖棣栭〉</a></nav>
   </div>
 </header>
 <main class="tool-page">
 <div class="tool-page-header">
-  <a href="../" class="back-link">← 返回全部工具</a>
-  <h1>⏰ 时间戳转换</h1>
-  <p>Unix 时间戳（秒/毫秒）与日期时间双向转换。</p>
+  <a href="../" class="back-link">鈫?杩斿洖鍏ㄩ儴宸ュ叿</a>
+  <h1>鈴?鏃堕棿鎴宠浆鎹?/h1>
+  <p>Unix 鏃堕棿鎴筹紙绉?姣锛変笌鏃ユ湡鏃堕棿鍙屽悜杞崲銆?/p>
 </div>
 <div class="tool-box">
-  <h3 style="margin-bottom:1rem">当前时间</h3>
+  <h3 style="margin-bottom:1rem">褰撳墠鏃堕棿</h3>
   <div id="nowBox" style="background:var(--primary-light);padding:.8rem 1rem;border-radius:8px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem">
-    <span id="nowDisplay" style="font-weight:600">加载中…</span>
-    <span><code id="nowTs" style="background:white;padding:.3rem .6rem;border-radius:4px"></code> <button class="btn btn-sm btn-secondary" onclick="navigator.clipboard.writeText(Math.floor(Date.now()/1000).toString()).then(function(){toast('已复制')})">复制</button></span>
+    <span id="nowDisplay" style="font-weight:600">鍔犺浇涓€?/span>
+    <span><code id="nowTs" style="background:white;padding:.3rem .6rem;border-radius:4px"></code> <button class="btn btn-sm btn-secondary" onclick="navigator.clipboard.writeText(Math.floor(Date.now()/1000).toString()).then(function(){toast('宸插鍒?)})">澶嶅埗</button></span>
   </div>
   <hr style="margin:1.5rem 0;border:none;border-top:1px solid var(--gray-200)">
-  <h3 style="margin-bottom:1rem">时间戳 → 日期</h3>
-  <div class="input-group"><label for="tsInput">输入时间戳</label><input type="text" id="tsInput" placeholder="例如：1700000000 或 1700000000000"></div>
-  <div class="btn-row"><button class="btn btn-primary" onclick="ts2date()">转换</button><button class="btn btn-secondary" onclick="document.getElementById('tsInput').value=Math.floor(Date.now()/1000);ts2date()">当前时间戳</button></div>
-  <div id="tsResult" class="result-box" style="min-height:50px"><span class="result-empty">等待输入…</span></div>
+  <h3 style="margin-bottom:1rem">鏃堕棿鎴?鈫?鏃ユ湡</h3>
+  <div class="input-group"><label for="tsInput">杈撳叆鏃堕棿鎴?/label><input type="text" id="tsInput" placeholder="渚嬪锛?700000000 鎴?1700000000000"></div>
+  <div class="btn-row"><button class="btn btn-primary" onclick="ts2date()">杞崲</button><button class="btn btn-secondary" onclick="document.getElementById('tsInput').value=Math.floor(Date.now()/1000);ts2date()">褰撳墠鏃堕棿鎴?/button></div>
+  <div id="tsResult" class="result-box" style="min-height:50px"><span class="result-empty">绛夊緟杈撳叆鈥?/span></div>
   <hr style="margin:1.5rem 0;border:none;border-top:1px solid var(--gray-200)">
-  <h3 style="margin-bottom:1rem">日期 → 时间戳</h3>
-  <div class="input-group"><label for="dateInput">选择日期时间</label><input type="datetime-local" id="dateInput"></div>
-  <div class="btn-row"><button class="btn btn-primary" onclick="date2ts()">转换</button></div>
-  <div id="dateResult" class="result-box" style="min-height:50px"><span class="result-empty">等待输入…</span></div>
+  <h3 style="margin-bottom:1rem">鏃ユ湡 鈫?鏃堕棿鎴?/h3>
+  <div class="input-group"><label for="dateInput">閫夋嫨鏃ユ湡鏃堕棿</label><input type="datetime-local" id="dateInput"></div>
+  <div class="btn-row"><button class="btn btn-primary" onclick="date2ts()">杞崲</button></div>
+  <div id="dateResult" class="result-box" style="min-height:50px"><span class="result-empty">绛夊緟杈撳叆鈥?/span></div>
 </div>
 </main>
-<footer class="site-footer">
-  H24 工具箱 &copy; 2026 &middot; 纯前端 &middot; 隐私安全
-</footer>
+<footer class="site-footer">`n  H24 工具箱 &copy; 2026 &middot; <a href="../products/">数字商店</a> &middot; 纯前端 &middot; 隐私安全`n</footer>
 <div id="toast" class="toast"></div>
 <script src="../js/main.js"></script>
 <script>
-function updateClock(){var n=new Date();document.getElementById('nowDisplay').textContent=n.toLocaleString('zh-CN',{hour12:false})+'(北京时间)';document.getElementById('nowTs').textContent=n.getTime()+' ms / '+Math.floor(n.getTime()/1000)+' s'}
+function updateClock(){var n=new Date();document.getElementById('nowDisplay').textContent=n.toLocaleString('zh-CN',{hour12:false})+'(鍖椾含鏃堕棿)';document.getElementById('nowTs').textContent=n.getTime()+' ms / '+Math.floor(n.getTime()/1000)+' s'}
 setInterval(updateClock,1000);updateClock();
 (function(){var n=new Date();document.getElementById('dateInput').value=n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-'+String(n.getDate()).padStart(2,'0')+'T'+String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0')})();
-function ts2date(){var v=document.getElementById('tsInput').value.trim(),out=document.getElementById('tsResult');if(!v){out.innerHTML='<span class="result-empty">请输入时间戳</span>';return}
-var ts=parseInt(v);if(isNaN(ts)){out.innerHTML='<span class="result-empty">无效时间戳</span>';return}
-var ms=v.length>=13?ts:ts*1000;var d=new Date(ms);if(isNaN(d.getTime())){out.innerHTML='<span class="result-empty">无效日期</span>';return}
-out.innerHTML='<pre style="margin:0;line-height:1.8"><b>北京时间:</b> '+d.toLocaleString('zh-CN',{hour12:false})+'<br><b>UTC:</b> '+d.toUTCString()+'<br><b>ISO:</b> '+d.toISOString()+'<br><b>秒级:</b> '+Math.floor(d.getTime()/1000)+'<br><b>毫秒级:</b> '+d.getTime()+'<br><b>星期:</b> '+"日一二三四五六".charAt(d.getDay())+'</pre>'}
-function date2ts(){var v=document.getElementById('dateInput').value,out=document.getElementById('dateResult');if(!v){out.innerHTML='<span class="result-empty">请选择日期</span>';return}
-var d=new Date(v);if(isNaN(d.getTime())){out.innerHTML='<span class="result-empty">无效日期</span>';return}
-out.innerHTML='<pre style="margin:0;line-height:1.8"><b>秒级:</b> '+Math.floor(d.getTime()/1000)+'<br><b>毫秒级:</b> '+d.getTime()+'</pre>'}
+function ts2date(){var v=document.getElementById('tsInput').value.trim(),out=document.getElementById('tsResult');if(!v){out.innerHTML='<span class="result-empty">璇疯緭鍏ユ椂闂存埑</span>';return}
+var ts=parseInt(v);if(isNaN(ts)){out.innerHTML='<span class="result-empty">鏃犳晥鏃堕棿鎴?/span>';return}
+var ms=v.length>=13?ts:ts*1000;var d=new Date(ms);if(isNaN(d.getTime())){out.innerHTML='<span class="result-empty">鏃犳晥鏃ユ湡</span>';return}
+out.innerHTML='<pre style="margin:0;line-height:1.8"><b>鍖椾含鏃堕棿:</b> '+d.toLocaleString('zh-CN',{hour12:false})+'<br><b>UTC:</b> '+d.toUTCString()+'<br><b>ISO:</b> '+d.toISOString()+'<br><b>绉掔骇:</b> '+Math.floor(d.getTime()/1000)+'<br><b>姣绾?</b> '+d.getTime()+'<br><b>鏄熸湡:</b> '+"鏃ヤ竴浜屼笁鍥涗簲鍏?.charAt(d.getDay())+'</pre>'}
+function date2ts(){var v=document.getElementById('dateInput').value,out=document.getElementById('dateResult');if(!v){out.innerHTML='<span class="result-empty">璇烽€夋嫨鏃ユ湡</span>';return}
+var d=new Date(v);if(isNaN(d.getTime())){out.innerHTML='<span class="result-empty">鏃犳晥鏃ユ湡</span>';return}
+out.innerHTML='<pre style="margin:0;line-height:1.8"><b>绉掔骇:</b> '+Math.floor(d.getTime()/1000)+'<br><b>姣绾?</b> '+d.getTime()+'</pre>'}
 </script>
 </body>
 </html>
