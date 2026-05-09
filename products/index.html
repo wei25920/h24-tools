@@ -17,31 +17,81 @@
 .p-card .p-body h3{font-size:1rem;font-weight:600;margin-bottom:.3rem}
 .p-card .p-body p{font-size:.85rem;color:var(--gray-500);line-height:1.6}
 .p-card .p-foot{border-top:1px solid var(--gray-100);padding:.7rem 1.2rem;display:flex;justify-content:space-between;align-items:center}
-.p-card .price{font-weight:700;color:var(--primary)}
-.p-card .btn-buy{padding:.35rem .9rem;border-radius:6px;border:none;background:var(--primary);color:#fff;font-size:.83rem;font-weight:600;cursor:pointer}
-.p-card .btn-buy:hover{background:var(--primary-dark)}
-.pay-note{max-width:500px;margin:2rem auto;text-align:center;font-size:.83rem;color:var(--gray-400)}
+.p-card .price{font-weight:700;color:var(--primary);font-size:1.1rem}
+.p-card .price .old{color:var(--gray-400);font-size:.8rem;text-decoration:line-through;font-weight:400;margin-right:.3rem}
+.p-card .price .free{color:#059669}
+.p-card .btn-buy{padding:.35rem .9rem;border-radius:6px;border:none;background:var(--primary);color:#fff;font-size:.83rem;font-weight:600;cursor:pointer;text-decoration:none!important;display:inline-block}
+.p-card .btn-buy:hover{background:var(--primary-dark);transform:translateY(-1px)}
+.p-card .btn-free{background:transparent;border:1.5px solid var(--primary);color:var(--primary)}
+.p-card .btn-free:hover{background:var(--primary);color:#fff}
+.pay-note{max-width:500px;margin:2rem auto;text-align:center;font-size:.83rem;color:var(--gray-400);line-height:1.8}
 @media(max-width:640px){.p-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <header class="site-header"><div class="header-inner"><a href="../" class="logo"><span class="logo-icon">H24</span><span>商店</span></a><nav class="header-nav"><a href="../">工具</a></nav></div></header>
-<section class="p-hero"><h1>数字产品商店</h1><p>开发者效率模板，即买即用，一次购买终身使用</p></section>
+<section class="p-hero"><h1>数字产品商店</h1><p>开发者效率模板，即买即用</p></section>
 <section class="p-section">
 <div class="p-grid" id="pGrid"></div>
-<div class="pay-note">支付通过爱发电 / Gumroad 安全处理<br>购买后邮件发送下载链接</div>
+<div class="pay-note">
+<p>支付通过 <strong>爱发电 (afdian.com)</strong> 或 <strong>Gumroad</strong> 安全处理</p>
+<p>购买后邮件发送下载链接 · 有问题请反馈</p>
+</div>
 </section>
 <footer class="site-footer">H24 工具箱 &copy; 2026</footer>
 <script>
-var prods=[
-{name:'开发者简历模板',desc:'ATS 友好简历模板，Markdown/Word/HTML 三格式，含 STAR 写法指南。',icon:'📄',price:'9.9',color:'#6366f1'},
-{name:'Notion 项目面板',desc:'任务看板、OKR 追踪、周报汇总，适合小团队和个人开发者。',icon:'📋',price:'19.9',color:'#10b981',old:'29.9'},
-{name:'Chrome 扩展套件',desc:'Manifest V3，TS + React，消息通信示例，一键打包脚本。',icon:'🧩',price:'29.9',color:'#f59e0b'},
-{name:'开发者速查手册',desc:'Git / Docker / Linux 命令 + VS Code 快捷键 + 正则，一页浓缩。',icon:'📖',price:'4.9',color:'#0891b2'},
-{name:'每周食谱规划表',desc:'Notion/Excel 版本，购物清单自动生成，热量估算。',icon:'📅',price:'9.9',color:'#ec4899'},
-{name:'极简 Markdown 简历',desc:'纯 Markdown 简历，专注内容，一键导出 PDF，外企友好。',icon:'✍️',price:'免费',color:'#14b8a6',free:true}
+var prods = [
+{
+name:'开发者简历模板',
+desc:'ATS 友好简历模板，支持 Markdown / Word / HTML 三格式。含 STAR 法则写作指南和关键词优化建议，适合投递技术岗位。',
+icon:'📄', price:'9.9', color:'#6366f1',
+url:'https://afdian.com/item/xxxxxxxx'
+},
+{
+name:'Notion 项目面板',
+desc:'一站式项目管理模板。任务看板、OKR 追踪、周报自动汇总，适合独立开发者和 5 人内小团队。',
+icon:'📋', price:'19.9', color:'#10b981', old:'29.9',
+url:'https://afdian.com/item/xxxxxxxx'
+},
+{
+name:'Chrome 扩展启动套件',
+desc:'Manifest V3 脚手架。TS + React，Popup/Options/Background 三件套，消息通信，一键打包脚本。',
+icon:'🧩', price:'29.9', color:'#f59e0b',
+url:'https://afdian.com/item/xxxxxxxx'
+},
+{
+name:'开发者速查手册 PDF',
+desc:'Git / Docker / Linux 命令 + VS Code 快捷键 + 正则速查，一页浓缩，可打印或存手机随手查看。',
+icon:'📖', price:'4.9', color:'#0891b2',
+url:'https://afdian.com/item/xxxxxxxx'
+},
+{
+name:'每周食谱规划表',
+desc:'Notion / Excel 双版本。周食谱规划、购物清单自动生成、热量估算、食材消耗追踪。',
+icon:'📅', price:'9.9', color:'#ec4899',
+url:'https://afdian.com/item/xxxxxxxx'
+},
+{
+name:'极简 Markdown 简历',
+desc:'纯 Markdown 简历模板，无多余样式，专注内容。A4 排版优化，一键导出 PDF，适合投递外企。',
+icon:'✍️', price:'免费', color:'#14b8a6', free:true,
+url:'../products/md-resume-template.md'
+}
 ];
-document.getElementById('pGrid').innerHTML=prods.map(function(p){return'<div class=p-card><div class=p-head style=background:linear-gradient(135deg,'+p.color+'22,'+p.color+'11)>'+p.icon+'</div><div class=p-body><h3>'+p.name+'</h3><p>'+p.desc+'</p></div><div class=p-foot><div class=price>'+(p.old?'<s style=color:var(--gray-400);font-size:.8rem>'+p.old+'</s> ':'')+(p.free?'<span style=color:#059673>免费</span>':'<span>'+p.price+'</span>')+'</div><button class=btn-buy>'+(p.free?'免费下载':'购买')+'</button></div></div>'}).join('');
+
+document.getElementById('pGrid').innerHTML = prods.map(function(p){
+var btnHtml = p.free
+? '<a href="' + p.url + '" class="btn-buy btn-free" download>免费下载</a>'
+: '<a href="' + p.url + '" class="btn-buy" target="_blank" rel="noopener">立即购买</a>';
+var priceHtml = p.free
+? '<span class="free">免费</span>'
+: (p.old ? '<span class="old">' + p.old + '</span>' : '') + '<span>' + p.price + '</span>';
+return '<div class="p-card">'
++ '<div class="p-head" style="background:linear-gradient(135deg,' + p.color + '22,' + p.color + '11)">' + p.icon + '</div>'
++ '<div class="p-body"><h3>' + p.name + '</h3><p>' + p.desc + '</p></div>'
++ '<div class="p-foot"><div class="price">' + priceHtml + '</div>' + btnHtml + '</div>'
++ '</div>';
+}).join('');
 </script>
 </body>
 </html>
